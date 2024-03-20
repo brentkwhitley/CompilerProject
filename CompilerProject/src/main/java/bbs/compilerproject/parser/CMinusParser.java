@@ -19,19 +19,21 @@ public class CMinusParser implements parser {
         scan = s;
         currToken = scan.getNextToken();
     }
-    
-    public TokenType peekToken(){
-        
-        return scan.viewNextToken().getTokenType();
-    }
+   
     
     public void advanceToken(){
         currToken = scan.getNextToken();
     }
     
+    class CMinusParserException extends Exception {
+        public CMinusParserException(String message) {
+        super(message);
+    }
+}
+    
     private void matchToken(TokenType t) throws Exception{
         if(t != currToken.getTokenType()){
-            throw new Exception("Token does not match, expected: " + currToken.getTokenType());
+            throw new CMinusParserException("Token does not match, expected: " + currToken.getTokenType());
         }
         advanceToken();
     }
@@ -65,25 +67,26 @@ public class CMinusParser implements parser {
     private ArrayList<Declaration> parseDecl() throws Exception{
         
         ArrayList<Declaration> list = new ArrayList<>();
-        
-        switch (this.currToken.getTokenType()) {
-            case VOID_TOKEN:
-                advanceToken();
-                Expression id = parseIDEx();
-                Declaration d = parseFunDecl(id);
-                list.add(d);
-                break;
-            case INT_TOKEN:
-                advanceToken();
-                Expression e = parseIDEx();
-                Declaration decl = parseDeclPrime(e);
-                list.add(decl);
-                break;
-            case EOF_TOKEN:
-              break; 
-
-            default:
-                throw new Exception("Error parsing Decl");
+        while (currToken.getTokenType() != EOF_TOKEN){
+            switch (this.currToken.getTokenType()) {
+                case VOID_TOKEN:
+                    advanceToken();
+                    Expression id = parseIDEx();
+                    Declaration d = parseFunDecl(id);
+                    list.add(d);
+                    break;
+                case INT_TOKEN:
+                    advanceToken();
+                    Expression e = parseIDEx();
+                    Declaration decl = parseDeclPrime(e);
+                    list.add(decl);
+                    break;
+                case SEMICOLON_TOKEN:
+                    matchToken(SEMICOLON_TOKEN);
+                    break;
+                default:
+                    throw new CMinusParserException("Error parsing parseDecl");
+            }
         }
      return list; 
     }
@@ -114,7 +117,8 @@ public class CMinusParser implements parser {
                 break;
             }
             default:
-                break;
+                throw new CMinusParserException("Error parsing DeclPrime");
+                
         }
         return ret;
         
@@ -164,6 +168,9 @@ public class CMinusParser implements parser {
         else if(currToken.getTokenType() == VOID_TOKEN){
             advanceToken();
         }
+        else{
+            throw new CMinusParserException("Error parsing parseParams");
+        }
   
         return p;
     }
@@ -196,45 +203,51 @@ public class CMinusParser implements parser {
     private Param parseParamPrime(Declaration id) throws Exception{
         Param p = null;
         
-        if(currToken.getTokenType() == LBRACKET_TOKEN){
-            p = new Param("INT,", id, true);
-            matchToken(LBRACKET_TOKEN);
-            matchToken(RBRACKET_TOKEN);
+        if(null == currToken.getTokenType()){
+            throw new CMinusParserException("error parsing parseParamPrime");
         }
-        else{
-            p = new Param("INT,", id, false);
+        else switch (currToken.getTokenType()) {
+            case LBRACKET_TOKEN:
+                p = new Param("INT,", id, true);
+                matchToken(LBRACKET_TOKEN);
+                matchToken(RBRACKET_TOKEN);
+                break;
+            case RPAREN_TOKEN:
+            case COMMA_TOKEN:
+                p = new Param("INT,", id, false);
+                break;
+            default:
+                throw new CMinusParserException("error parsing parseParamPrime");
         }
-        
+       
         return p;
     }
         
     private Statement parseStatement() throws Exception{
         Statement s = null;
-        if(null!=
-                currToken.getTokenType())switch (currToken.getTokenType()) {
-        //EXPR-STMT
-            case SEMICOLON_TOKEN:
-            case IDENT_TOKEN:
-            case NUMBER_TOKEN:
-            case LPAREN_TOKEN:
-                
-                s = parseExpressionStatement();
-                break;
-            case LBRACE_TOKEN:
-                //Compound Stmt
-                s = parseCompoundStatement();
-                break;
-            case IF_TOKEN:
-                s = parseSelectionStatement();
-                break;
-            case WHILE_TOKEN:
-                s = parseIterationStatement();
-                break;
-            case RETURN_TOKEN:
-                s = parseReturnStatement();
-                break;
-            default:
-                break;
+        if(null!= currToken.getTokenType())
+            switch (currToken.getTokenType()) {
+                case SEMICOLON_TOKEN:
+                case IDENT_TOKEN:
+                case NUMBER_TOKEN:
+                case LPAREN_TOKEN:
+                    s = parseExpressionStatement();
+                    break;
+                case LBRACE_TOKEN:
+                    s = parseCompoundStatement();
+                    break;
+                case IF_TOKEN:
+                    s = parseSelectionStatement();
+                    break;
+                case WHILE_TOKEN:
+                    s = parseIterationStatement();
+                    break;
+                case RETURN_TOKEN:
+                    s = parseReturnStatement();
+                    break;
+                default:
+                    throw new CMinusParserException("Error parsing parseStatment");
+                    
         }
         return s;
     }
@@ -399,7 +412,6 @@ public class CMinusParser implements parser {
                 case NUMBER_TOKEN:
                     Expression num = parseNumExpression();
                     ret = parseSimpleExpression(num);
-                    //todo: this could be incorrect
 
                     break;
                 case LPAREN_TOKEN:
@@ -410,7 +422,7 @@ public class CMinusParser implements parser {
                     
                      
                 default:
-                    break;
+                    throw new CMinusParserException("Error parsing parseExpression");
             }
        }
        
@@ -445,9 +457,26 @@ public class CMinusParser implements parser {
                 ret = new CallExpression(id, k, simpEx);
                 break;
                 }
-            default:
+            case MUL_TOKEN:
+            case SLASH_TOKEN:
+            case PLUS_TOKEN:
+            case MINUS_TOKEN:
+            case SEMICOLON_TOKEN:
+            case RPAREN_TOKEN:
+            case RBRACKET_TOKEN:
+            case COMMA_TOKEN:
+            case IDENT_TOKEN:
+            case NUMBER_TOKEN:
+            case EQTO_TOKEN:
+            case LTEQ_TOKEN:
+            case LT_TOKEN:
+            case GT_TOKEN:
+            case GTEQ_TOKEN:
+            case NOTEQ_TOKEN:
                 ret = parseSimpleExpression(id);
                 break;
+            default:
+                throw new CMinusParserException("error parsing parseExpressionPrime");
         }
         
         return ret;
@@ -580,7 +609,7 @@ public class CMinusParser implements parser {
                     
                     break;
                 default:
-                    break;
+                    throw new CMinusParserException("error parsing parseExpressionPrime");
         }
         
         return e;
@@ -596,19 +625,38 @@ public class CMinusParser implements parser {
                     matchToken(LBRACE_TOKEN);
                     e = parseExpression();
                     matchToken(RBRACE_TOKEN);
-                   
+
                     break;
                 case LPAREN_TOKEN:
                     matchToken(LPAREN_TOKEN);
                     ArrayList<Expression> args = parseArgs();
                     matchToken(RPAREN_TOKEN);
                     e = new CallExpression(id, args, null);
-                    
+
                     break;
-                default:
+                case PLUS_TOKEN:
+                case MINUS_TOKEN:
+                case MUL_TOKEN:
+                case SLASH_TOKEN:
+                case LT_TOKEN:
+                case LTEQ_TOKEN:
+                case GT_TOKEN:
+                case GTEQ_TOKEN:
+                case EQTO_TOKEN:
+                case NOTEQ_TOKEN:
+                case SEMICOLON_TOKEN:
+                case COMMA_TOKEN:    
+                case RPAREN_TOKEN:
+                case RBRACE_TOKEN: 
+                case NUMBER_TOKEN:
+                case IDENT_TOKEN:
+                case ASSIGN_TOKEN:
                     e = new IDExpression(((IDExpression)id).getName(), null);
                     break;
-        }
+                default:
+                    throw new CMinusParserException("error in parseVarCall");
+
+            }
         
         return e;
         
@@ -616,11 +664,20 @@ public class CMinusParser implements parser {
     
     private ArrayList<Expression> parseArgs() throws Exception{
        ArrayList<Expression> args = new ArrayList<>();
-       if (currToken.getTokenType() == IDENT_TOKEN ||
-               currToken.getTokenType() == NUMBER_TOKEN ||
-               currToken.getTokenType() == LPAREN_TOKEN) {
-           args = parseArgsList();
-       } 
+       if (null == currToken.getTokenType()) {
+           throw new CMinusParserException("error in parseArgs");
+       }
+       else switch (currToken.getTokenType()) {
+            case IDENT_TOKEN:
+            case NUMBER_TOKEN:
+            case LPAREN_TOKEN:
+                args = parseArgsList();
+                break;
+            case RPAREN_TOKEN:
+                break;
+            default:
+                throw new CMinusParserException("error in parseArgs");
+        }
        
        return args;
     }

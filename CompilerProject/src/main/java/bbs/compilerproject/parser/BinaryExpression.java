@@ -12,17 +12,69 @@ import bbs.compilerproject.scanner.Token;
  */
 public class BinaryExpression extends Expression{
     
-    Expression lhs; 
-    Expression rhs;
-    Token.TokenType operator;
+    private Expression lhs; 
+    private Expression rhs;
+    private opType operator;
     
+    public enum opType{
+        PLUS,
+        MINUS,
+        MUL,
+        SLASH,
+        LT,
+        LTEQ,
+        GT,
+        GTEQ,
+        EQTO,
+        NOTEQ,
+        ASSIGN
+    }
+            
     public BinaryExpression(Token.TokenType op, Expression l, Expression r){
         lhs = l;
         rhs = r;
-        operator = op;
+        
+        if (null != op)switch (op) {
+            case PLUS_TOKEN:
+                operator = opType.PLUS;
+                break;
+            case MINUS_TOKEN:
+                operator = opType.MINUS;
+                break;
+            case MUL_TOKEN:
+                operator = opType.MUL;
+                break;
+            case SLASH_TOKEN:
+                operator = opType.SLASH;
+                break;
+            case LT_TOKEN:
+                operator = opType.LT;
+                break;
+            case LTEQ_TOKEN:
+                operator = opType.LTEQ;
+                break;
+            case GT_TOKEN:
+                operator = opType.GT;
+                break;
+            case GTEQ_TOKEN:
+                operator = opType.GTEQ;
+                break;
+            case EQTO_TOKEN:
+                operator = opType.EQTO;
+                break;
+            case NOTEQ_TOKEN:
+                operator = opType.NOTEQ;
+                break;
+            case ASSIGN_TOKEN:
+                operator = opType.ASSIGN;
+                break;
+            default:
+                break;
+        }
+        
     } 
     
-    public Token.TokenType getOperator(){
+    public opType getOperator(){
         return this.operator;
     }
     
