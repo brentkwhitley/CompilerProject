@@ -179,3 +179,48 @@ varcall -> { < , > , = , ! , ; , ) ,  ] , ‘,’ , =, ID, NUM, ( , * , / , +, -
 args -> { ) }
 
 args-list -> { ) }
+
+---
+# Classes
+
+## Expr (6)
+
+expr -> abstract
+
+assign
+
+binary
+
+call
+
+ID
+
+num
+
+## Stmt (6)
+
+stmt -> abstract
+
+iteration
+
+return
+
+selection
+
+compound
+
+expression
+
+## Decls (3)
+
+decl -> abstract
+
+var
+
+fun
+
+## Other (2)
+
+Program
+
+Param
