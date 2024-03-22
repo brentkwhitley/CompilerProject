@@ -24,19 +24,19 @@ public class Program {
     }
     
      
-    public void print() {
+    public void print(String inFileName){
+        
+        String outFile = inFileName + ".ast";
         try {
-            File file = new File("output.ast");
+            File file = new File(outFile);
             if (file.createNewFile()) {
                 System.out.println("File created: " + file.getName() + "\n");
             }
             
-            FileWriter fw = new FileWriter("output.ast", true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pr = new PrintWriter(bw);
+            PrintWriter pr = new PrintWriter(new BufferedWriter(new FileWriter(outFile, false)));
             
             for (int i = 0; i < program.size(); i++) {
-                program.get(i).print(pr);
+                program.get(i).print(pr, 0);
             }
             pr.close();
         }

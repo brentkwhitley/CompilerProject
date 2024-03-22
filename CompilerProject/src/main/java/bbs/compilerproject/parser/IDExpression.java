@@ -4,9 +4,6 @@
  */
 package bbs.compilerproject.parser;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -15,27 +12,23 @@ import java.io.PrintWriter;
  */
 public class IDExpression extends Expression{
     
-    private String name;
-    private Expression arraySize;
+//    private VarDeclaration id;
+//      private Expression rhs;
     
- 
-    
-    public IDExpression(String n, Expression e){
-        name = n;
-        arraySize = e;
-   
+    public IDExpression(VarDeclaration id, Expression rhs){
+        this.id = id;
+        this.rhs = rhs;
+    }
+    public VarDeclaration getName(){
+       return id;
     }
     
-    
-    public String getName(){
-        return name;
-    }
-    
+//    public void setRHS(Expression e){
+//        val = e;
+//    }
+
     @Override
-    public void print(PrintWriter pr){
-        String str = String.format("-name:%s", name);
-        pr.println(str);
-        System.out.println(str);
+    public void print(PrintWriter pr, int indentation){
+        //print id = rhs;
     }
 }
-

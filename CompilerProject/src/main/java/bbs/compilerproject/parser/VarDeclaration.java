@@ -4,63 +4,44 @@
  */
 package bbs.compilerproject.parser;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- *
+ *  int x;
+ * int x[];
+ * 
+ * int x[] = x + 8;
  * @author Ben
  */
 public class VarDeclaration extends Declaration{
     
-    private String type;
     private String name;
-    private Expression val;
-    private Expression rhs;
+    private Expression arraySize;
     
-    public VarDeclaration(String ex, Expression e, Expression r){
-        this.type = type;
-        name = ex;
-        val = e;
-        rhs = r;
+    public VarDeclaration(String name, Expression expr){ 
+        this.name = name;
+        arraySize = expr;
+    }
+    
+    public VarDeclaration(String name){ 
+        this.name = name;
+        arraySize = null;
     }
     
     public String getName(){
         return name;
     }
     
-    public void setRHS(Expression e){
-        rhs = e;
-        
-    }
-
     @Override
-    public void print(PrintWriter pr){
-//        try {
-//            File file = new File("output.ast");
-//            if (file.createNewFile()) {
-//                System.out.println("File created: " + file.getName());
-//            } else {
-//                System.out.println("File already exists.");
-//            }
-//            
-//            FileWriter writer = new FileWriter("output.ast");
-//            
-//            if (rhs == null) {
-//                writer.write(name.toString());
-//                System.out.println(name.toString());
-//            }
-//            
-//            writer.close();
-//            
-//            
-//        } catch (IOException e) {
-//            System.out.println("An error occurred.");
-//            e.printStackTrace();
-//        }
-//        
-        //print-> name[val] = rhs    *if rhs != null, else just print left side* 
+    public void print(PrintWriter pr, int indentation){
+        String indent = "-".repeat(indentation);
+        
+        String str = String.format("%type:int", indent);
+        pr.println(str);
+        System.out.println(str);
+        
+        str = String.format("%sname:%s", indent, name);
+        pr.println(str);
+        System.out.println(str);
     }
 }

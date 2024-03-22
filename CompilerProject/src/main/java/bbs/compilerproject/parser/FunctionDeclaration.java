@@ -4,10 +4,6 @@
  */
 package bbs.compilerproject.parser;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -18,31 +14,44 @@ import java.util.ArrayList;
 public class FunctionDeclaration extends Declaration{
 
     private String type;
-    private Expression id;
+    private String name;
     private ArrayList<Param> params;
-    private Statement compoundstmt;
+    private Statement compoundStmt;
     
-    public FunctionDeclaration(String type, Expression k, ArrayList<Param> list, Statement compdstmt ){
+    private int indentation;
+    
+    public FunctionDeclaration(String type, String name, ArrayList<Param> paramsList, Statement compoundStmt){
         this.type = type;
-        id = k;
-        params = list;
-        compoundstmt = compdstmt;
+        this.name = name;
+        params = paramsList;
+        this.compoundStmt = compoundStmt;
     }
     
     @Override
-    public void print(PrintWriter pr){
-        // print fun-decl with type and name
-        String str = String.format("fun-decl\n-type:%s", type);
+    public void print(PrintWriter pr, int indentation){
+        // print fun-decl
+        String str = String.format("fun-decl\n-type:%s\n-name:%s", type, name);
         pr.println(str);
         System.out.println(str);
-            
-        // print id expr name
-        id.print(pr);
-            
-        // print params list
-        str = String.format("-params");
-        pr.println(str);
-        System.out.println(str);
+        
         // TODO: print params list if not void
+        if (params != null) {
+            
+            // print params
+            str = String.format("-params");
+            pr.println(str);
+            System.out.println(str);
+            
+            for (int i = 0; i < params.size(); i++) {
+                str = String.format("--param");
+                pr.println(str);
+                System.out.println(str);
+
+                // print param type and name
+                str = String.format("---type:int\n---name:%s", params.get(i));
+                pr.println(str);
+                System.out.println(str);
+            }
+        }
     }
 }

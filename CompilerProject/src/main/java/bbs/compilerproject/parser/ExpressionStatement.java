@@ -4,11 +4,10 @@ package bbs.compilerproject.parser;
 
 public class ExpressionStatement extends Statement{
     
-    Expression e;
+    Expression expr;
     
-    public ExpressionStatement(Expression ex){
-        
-        e = ex;
+    public ExpressionStatement(Expression expr){
+        this.expr = expr;
     }
     
     @Override

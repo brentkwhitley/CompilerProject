@@ -19,13 +19,16 @@ public class CMinusParser implements parser {
         scan = s;
         currToken = scan.getNextToken();
     }
-   
     
     public void advanceToken(){
         currToken = scan.getNextToken();
     }
     
-    class CMinusParserException extends Exception {
+    public Token viewNextToken(){
+        return scan.viewNextToken();
+    }
+    
+    class CMinusParserException extends Exception{
         public CMinusParserException(String message) {
         super(message);
     }
@@ -43,24 +46,16 @@ public class CMinusParser implements parser {
 
         Program p = null;
         try {
-            
-            
             p = parseProgram();
-           
-            
-            
         } catch (Exception ex) {
             Logger.getLogger(CMinusParser.class.getName()).log(Level.SEVERE, null, ex);
         }
         return p;
-    } 
+    }
     
     private Program parseProgram() throws Exception{
-        
         Program p = new Program();
-        
         p.program = parseDecl();
-        
         return p;
     }
     
@@ -71,14 +66,20 @@ public class CMinusParser implements parser {
             switch (this.currToken.getTokenType()) {
                 case VOID_TOKEN:
                     advanceToken();
-                    Expression id = parseIDEx();
-                    Declaration d = parseFunDecl("void", id);
-                    list.add(d);
+                    Declaration funDecl = parseFunDecl("void", (String)currToken.getTokenData());
+                    list.add(funDecl);
                     break;
                 case INT_TOKEN:
                     advanceToken();
-                    Expression e = parseIDEx();
-                    Declaration decl = parseDeclPrime("int", e);
+                    // TODO: check that its an id
+                    if ((String)currToken.getTokenData() == "int" || (String)currToken.getTokenData() == "void") {
+                        throw new CMinusParserException("Error: invalid declaration name");
+                    }
+                    
+                    String name = (String)currToken.getTokenData();
+
+                    // = parseIDEx();
+                    Declaration decl = parseDeclPrime(name);
                     list.add(decl);
                     break;
                 case SEMICOLON_TOKEN:
@@ -91,35 +92,28 @@ public class CMinusParser implements parser {
      return list; 
     }
     
-    private Declaration parseDeclPrime(String type, Expression e) throws Exception {
+    private Declaration parseDeclPrime(String name) throws Exception {
         
         Declaration ret = null;
         
-        if(null != currToken.getTokenType())switch (currToken.getTokenType()) {
+        if(currToken.getTokenType() != null) switch (currToken.getTokenType()) {
             case SEMICOLON_TOKEN:
-            {
                 matchToken(SEMICOLON_TOKEN);
                 
-//                TODO: add type
-                ret = new VarDeclaration(((IDExpression)e).getName(), null, null);
+                // TODO: make vardecl
+                ret = new VarDeclaration(name, null);
                 break;
-            }   
             case LBRACKET_TOKEN:
-            {
                 matchToken(LBRACKET_TOKEN);
-                Expression n = parseNumExpression();
+                Expression size = parseExpression();
                 
-//                TODO: add type
-                ret = new VarDeclaration(((IDExpression)e).getName(), n, null);
+                // TODO: make vardecl
+                ret = new VarDeclaration(name, size);
                 matchToken(RBRACKET_TOKEN);
                 break;
-            }
             case LPAREN_TOKEN:
-            {
-              
-                ret = parseFunDecl(type, e);
+                ret = parseFunDecl("int", name);
                 break;
-            }
             default:
                 throw new CMinusParserException("Error parsing DeclPrime");
                 
@@ -135,70 +129,66 @@ public class CMinusParser implements parser {
         return e;
     }
     
-    private Declaration parseIDDecl(){
-        
-        Declaration e = new VarDeclaration((String)(this.currToken.getTokenData()), null, null);
-        advanceToken();
-        return e;
-    }
+//    private Declaration parseIDDecl(){
+//        
+////        Declaration e = new VarDeclaration()
+//        Declaration e = new VarDeclaration((String)(this.currToken.getTokenData()), null, null);
+//        advanceToken();
+//        return e;
+//    }
     
-    private Expression parseIDEx(){
-        
+    private String parseIDExpression(){
         Expression e = new IDExpression((String)(this.currToken.getTokenData()), null);
         advanceToken();
         return e;
     }
     
-    private Declaration parseFunDecl(String type, Expression name) throws Exception {
+    private Declaration parseFunDecl(String type, String name) throws Exception {
         
         matchToken(LPAREN_TOKEN);
         
-//        TODO: check if there are params (see if there is a right param as next token)
-        ArrayList<Param> p = parseParams();
+        // TODO: check if there are params (see if there is a right param as next token)
+        ArrayList<Param> params;
+        if ((String)currToken.getTokenData() == null) {
+            params = null;
+        } else {
+            params = parseParams();
+        }
+        
         matchToken(RPAREN_TOKEN);
         Statement statement = parseCompoundStatement();
         
-        Declaration d = new FunctionDeclaration(type, name, p, statement);
-        
+        Declaration d = new FunctionDeclaration(type, name, params, statement);
         return d;
         
     }
     
     private ArrayList<Param> parseParams() throws Exception{
         
-        ArrayList<Param> p = null;
+        ArrayList<Param> params = null;
         
-        if(currToken.getTokenType() == INT_TOKEN){
-            p = parseParamList(); 
+        if (viewNextToken().getTokenType() == RPAREN_TOKEN) {
+            return params;
+        } else if (currToken.getTokenType() == INT_TOKEN) {
+            params = parseParamList();
+        } else {
+            throw new CMinusParserException("Error: expected parameter of type int, received " + (String)currToken.getTokenData());
         }
-        
-//        TODO: there might not be a void token, might just be empty
-        
-        else if(currToken.getTokenType() == VOID_TOKEN){
-            advanceToken();
-        }
-        else{
-            throw new CMinusParserException("Error parsing parseParams");
-        }
-  
-        return p;
+        return params;
     }
     
     private ArrayList<Param> parseParamList() throws Exception{
         
-        ArrayList<Param> k = new ArrayList();
-        
+        ArrayList<Param> params = new ArrayList();
         Param p = parseParam();
+        params.add(p);
         
-        k.add(p);
-        
-        while(currToken.getTokenType() == COMMA_TOKEN){
+        while (currToken.getTokenType() == COMMA_TOKEN){
             matchToken(COMMA_TOKEN);
-            Param t = parseParam();
-            k.add(t);
+            p = parseParam();
+            params.add(p);
         }
-        
-        return k;
+        return params;
     }
     
     private Param parseParam() throws Exception{
@@ -217,13 +207,13 @@ public class CMinusParser implements parser {
         }
         else switch (currToken.getTokenType()) {
             case LBRACKET_TOKEN:
-                p = new Param("INT,", id, true);
+                p = new Param("int", id, true);
                 matchToken(LBRACKET_TOKEN);
                 matchToken(RBRACKET_TOKEN);
                 break;
             case RPAREN_TOKEN:
             case COMMA_TOKEN:
-                p = new Param("INT,", id, false);
+                p = new Param("int", id, false);
                 break;
             default:
                 throw new CMinusParserException("Error parsing parseParamPrime");
@@ -287,7 +277,7 @@ public class CMinusParser implements parser {
         
         while(currToken.getTokenType() == INT_TOKEN){
             
-            advanceToken(); //advances past INT
+            advanceToken(); // advances past INT
             Declaration e = parseIDDecl();
             
             
@@ -337,7 +327,7 @@ public class CMinusParser implements parser {
             
         }
              
-        while (currToken.getTokenType() == SEMICOLON_TOKEN || //IF STMT ONLY
+        while (currToken.getTokenType() == SEMICOLON_TOKEN || // IF STMT ONLY
                 currToken.getTokenType() == IDENT_TOKEN || 
                 currToken.getTokenType() == NUMBER_TOKEN ||
                 currToken.getTokenType() == LPAREN_TOKEN ||
@@ -414,7 +404,7 @@ public class CMinusParser implements parser {
            
             switch (currToken.getTokenType()) {
                 case IDENT_TOKEN:
-                    Expression id = parseIDEx();
+                    Expression id = parseIDExpression();
                     ret = parseExpressionPrime(id);
                     
                     break;

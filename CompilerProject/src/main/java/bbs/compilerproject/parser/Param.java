@@ -4,21 +4,30 @@
  */
 package bbs.compilerproject.parser;
 
+import java.io.PrintWriter;
+
 /**
  *
  * @author Ben
  */
 public class Param {
     
-    private String type;
+    // only possible param type is int
     private Declaration id;
     private boolean brackets;
     private int indentation = 2;
     
-    public Param(String s, Declaration e, boolean k){
-        
-        type = s;
+    public Param(VarDeclaration e, boolean k){
         id = e;
         brackets = k;
+    }
+    
+    public String getName() {
+        return id.;
+    }
+    
+    public void print(PrintWriter pr, int indentation){
+        
+        id.print(pr, indentation);
     }
 }

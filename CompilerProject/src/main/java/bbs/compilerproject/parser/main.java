@@ -3,15 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package bbs.compilerproject.parser;
-
-import bbs.compilerproject.scanner.Token;
-
-import java.io.BufferedWriter;
 import bbs.compilerproject.scanner.CMinusScanner;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -20,29 +12,24 @@ import java.util.logging.Logger;
 public class main {
 
     public static void main(String[] args) {
-        String outputPath = "/Users/sam/Projects/CompilerProject/CompilerProject/src/main/java/bbs/compilerproject/scanner/output.txt";
-        String inputPath = "/Users/sam/Projects/CompilerProject/CompilerProject/src/main/java/bbs/compilerproject/parser/testInput.txt";
         
-        FileWriter p = null;
+        String workingDir = System.getProperty("user.dir");
+        String inFile;
         
-        try {
-            p = new FileWriter(outputPath);
-        } catch (IOException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        if (args.length != 1) {
+            System.out.println("Error: expected 1 argument, received " + args.length);
+            return;
+        } else {
+            inFile = args[0];
         }
         
-        
-        
-
-        BufferedWriter writer = new BufferedWriter(p);
-        CMinusScanner scan = new CMinusScanner(inputPath);
-        
-        
-        CMinusParser parse = new CMinusParser(scan);
-        
+        String file = String.format("%s/%s", workingDir, inFile);
+        CMinusScanner scan = new CMinusScanner(file);
+        CMinusParser parse = new CMinusParser(scan); 
         Program program = parse.parse();
         
-        program.print();
-        
+        String[] str = inFile.split("\\."); // use escape character because . represents any char in regex
+        String inFileWithoutExt = str[0];
+        program.print(inFileWithoutExt);
     }
 }

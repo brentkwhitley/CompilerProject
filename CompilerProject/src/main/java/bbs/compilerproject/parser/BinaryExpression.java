@@ -80,8 +80,8 @@ public class BinaryExpression extends Expression{
     }
     
     @Override
-    public void print(PrintWriter pr){
-        System.out.println();
+    public void print(PrintWriter pr, int indentation){
+        
     }
 }
 
