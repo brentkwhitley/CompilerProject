@@ -2,59 +2,59 @@
 
 Program -> decl {decl}
 
-decl -> void ID fun-decl’ | int ID decl’
+decl -> **void ID** fun-decl’ | **int ID** decl’
 
-decl’ -> ; | [num] | fun-decl’
+decl’ -> **;** | **[num]** | fun-decl’
 
 fun-decl’ -> (params) compound-stmt
 
-params -> param-list | void
+params -> param-list | **void**
 
 param-list -> param {, param}
 
-param ->  int ID param’
+param ->  **int ID** param’
 
-param’ -> [ ] | epsilon
+param’ -> **[ ]** | epsilon
 
 stmt  -> expr-stmt | compound-stmt | selection-stmt | iteration-stmt | return-stmt
 
-expr-stmt ->  [ expr ] ;
+expr-stmt ->  [ expr ] **;**
 
-compound-stmt -> { {int ID [ [num] ] } {stmt} }
+compound-stmt -> **{** {**int ID** [ **[num]** ] } {stmt} **}**
 
-selection-stmt -> if (expr) stmt [else stmt]
+selection-stmt -> **if (**expr**)** stmt [**else** stmt]
 
-iteration-stmt -> while (expr) stmt
+iteration-stmt -> **while (**expr**)** stmt
 
-return-stmt -> return [expr] ;
+return-stmt -> **return** [expr] **;**
 
-expr -> ID expr’ | num simple-expr’ | (expr) simple-expr’
+expr -> **ID** expr’ | **num** simple-expr’ | **(**expr**)** simple-expr’
 
-expr’ -> = expr | [expr] expr’’ | (args) simple-expr’ | simple-expr’
+expr’ -> = expr | **[**expr**]** expr’’ | **(**args**)** simple-expr’ | simple-expr’
 
 expr’’ -> = expr | simple-expr’
 
 simple-expr’ -> additive-expr’ [relop additive-expr]
 
-relop -> <= | < | > | >= | == | !=
+relop -> **<=** | **<** | **>** | **>=** | **==** | **!=**
 
 additive-expr -> term {addop term}
 
 additive-expr’ -> term’ {addop term}
 
-addop -> + | -
+addop -> **+** | **-**
 
 term -> factor {mulop factor}
 
 term’ -> {mulop factor}
 
-mulop -> * | /
+mulop -> ***** | **/**
 
-factor -> (expr) | num | ID varcall
+factor -> **(**expr**)** | **num** | **ID** varcall
 
-varcall -> [expr] | (args) | epsilon
+varcall -> **[**expr**]** | **(**args**)** | **epsilon**
 
-args -> args-list | epsilon
+args -> args-list | **epsilon**
 
 args-list -> expr { , expr}
 
