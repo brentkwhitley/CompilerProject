@@ -185,7 +185,7 @@ args-list -> { ) }
 
 ## Expr (6)
 
-expr -> abstract
+expr - abstract
 
 assign
 
@@ -199,7 +199,7 @@ num
 
 ## Stmt (6)
 
-stmt -> abstract
+stmt - abstract
 
 iteration
 
@@ -213,7 +213,7 @@ expression
 
 ## Decls (3)
 
-decl -> abstract
+decl - abstract
 
 var
 
@@ -221,6 +221,6 @@ fun
 
 ## Other (2)
 
-Program
+program
 
-Param
+param
