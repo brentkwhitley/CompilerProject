@@ -20,8 +20,8 @@ import java.util.logging.Logger;
 public class main {
 
     public static void main(String[] args) {
-        String outputPath = "/Users/bennyballin/NetBeansProjects/CompilerProject/CompilerProject/src/main/java/bbs/compilerproject/scanner/output.txt";
-        String inputPath = "/Users/bennyballin/Desktop/CompilerProject-master/CompilerProject/CompilerProject/src/main/java/bbs/compilerproject/parser/testInput.txt";
+        String outputPath = "/Users/sam/Projects/CompilerProject/CompilerProject/src/main/java/bbs/compilerproject/scanner/output.txt";
+        String inputPath = "/Users/sam/Projects/CompilerProject/CompilerProject/src/main/java/bbs/compilerproject/parser/testInput.txt";
         
         FileWriter p = null;
         
@@ -42,7 +42,7 @@ public class main {
         
         Program program = parse.parse();
         
-        //program.print();
+        program.print();
         
     }
 }

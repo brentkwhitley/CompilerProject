@@ -80,7 +80,7 @@ public class BinaryExpression extends Expression{
     
     @Override
     public void print(){
-        
+        System.out.println();
     }
 }
 

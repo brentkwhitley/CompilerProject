@@ -10,5 +10,5 @@ package bbs.compilerproject.parser;
  */
 abstract class Statement {
     
-    abstract void print();
+    public abstract void print();
 }

@@ -33,7 +33,7 @@ public class CMinusParser implements parser {
     
     private void matchToken(TokenType t) throws Exception{
         if(t != currToken.getTokenType()){
-            throw new CMinusParserException("Token does not match, expected: " + currToken.getTokenType());
+            throw new CMinusParserException("Error: token does not match, expected " + currToken.getTokenType());
         }
         advanceToken();
     }
@@ -59,7 +59,7 @@ public class CMinusParser implements parser {
         
         Program p = new Program();
         
-        p.program = parseDecl(); 
+        p.program = parseDecl();
         
         return p;
     }
@@ -204,7 +204,7 @@ public class CMinusParser implements parser {
         Param p = null;
         
         if(null == currToken.getTokenType()){
-            throw new CMinusParserException("error parsing parseParamPrime");
+            throw new CMinusParserException("Error parsing parseParamPrime");
         }
         else switch (currToken.getTokenType()) {
             case LBRACKET_TOKEN:
@@ -217,7 +217,7 @@ public class CMinusParser implements parser {
                 p = new Param("INT,", id, false);
                 break;
             default:
-                throw new CMinusParserException("error parsing parseParamPrime");
+                throw new CMinusParserException("Error parsing parseParamPrime");
         }
        
         return p;
@@ -476,7 +476,7 @@ public class CMinusParser implements parser {
                 ret = parseSimpleExpression(id);
                 break;
             default:
-                throw new CMinusParserException("error parsing parseExpressionPrime");
+                throw new CMinusParserException("Error parsing parseExpressionPrime");
         }
         
         return ret;
@@ -609,7 +609,7 @@ public class CMinusParser implements parser {
                     
                     break;
                 default:
-                    throw new CMinusParserException("error parsing parseExpressionPrime");
+                    throw new CMinusParserException("Error parsing parseExpressionPrime");
         }
         
         return e;
@@ -654,7 +654,7 @@ public class CMinusParser implements parser {
                     e = new IDExpression(((IDExpression)id).getName(), null);
                     break;
                 default:
-                    throw new CMinusParserException("error in parseVarCall");
+                    throw new CMinusParserException("Error in parseVarCall");
 
             }
         
@@ -665,7 +665,7 @@ public class CMinusParser implements parser {
     private ArrayList<Expression> parseArgs() throws Exception{
        ArrayList<Expression> args = new ArrayList<>();
        if (null == currToken.getTokenType()) {
-           throw new CMinusParserException("error in parseArgs");
+           throw new CMinusParserException("Error in parseArgs");
        }
        else switch (currToken.getTokenType()) {
             case IDENT_TOKEN:
@@ -676,7 +676,7 @@ public class CMinusParser implements parser {
             case RPAREN_TOKEN:
                 break;
             default:
-                throw new CMinusParserException("error in parseArgs");
+                throw new CMinusParserException("Error in parseArgs");
         }
        
        return args;
@@ -692,7 +692,6 @@ public class CMinusParser implements parser {
             
             lhs.add(parseExpression());
         }
-        
         
         return lhs;
     }

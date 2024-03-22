@@ -11,5 +11,5 @@ package bbs.compilerproject.parser;
 
 abstract class Expression {
     
-    abstract void print();
+    public abstract void print();
 }

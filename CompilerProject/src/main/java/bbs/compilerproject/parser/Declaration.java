@@ -10,7 +10,7 @@ package bbs.compilerproject.parser;
  */
 abstract class Declaration {
     
-  
-    abstract void print();
+    
+    public abstract void print();
     
 }

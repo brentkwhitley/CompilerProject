@@ -17,5 +17,10 @@ public class Program {
     public Program(){
         program = null;
     }
+    
+     
+    public void print() {
+        
+    }
 }
 
