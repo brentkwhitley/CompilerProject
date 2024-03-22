@@ -4,6 +4,11 @@
  */
 package bbs.compilerproject.parser;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 /**
  *
  * @author Ben
@@ -27,8 +32,10 @@ public class IDExpression extends Expression{
     }
     
     @Override
-    public void print(){
-        
+    public void print(PrintWriter pr){
+        String str = String.format("-name:%s", name);
+        pr.println(str);
+        System.out.println(str);
     }
 }
 

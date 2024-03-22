@@ -4,6 +4,8 @@
  */
 package bbs.compilerproject.parser;
 
+import java.io.PrintWriter;
+
 /**
  *
  * @author Ben
@@ -17,7 +19,7 @@ public class NumExpression extends Expression{
     }
     
     @Override
-    public void print(){
+    public void print(PrintWriter pr){
         
     }
 }

@@ -4,6 +4,8 @@
  */
 package bbs.compilerproject.parser;
 
+import java.io.PrintWriter;
+
 
 public class AssignExpression extends Expression{
     private IDExpression LEx; //ID Expresion
@@ -19,7 +21,7 @@ public class AssignExpression extends Expression{
     }
     
     @Override
-    public void print(){
+    public void print(PrintWriter pr){
         
         //print L = R
     }

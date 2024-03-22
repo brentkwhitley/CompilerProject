@@ -72,13 +72,13 @@ public class CMinusParser implements parser {
                 case VOID_TOKEN:
                     advanceToken();
                     Expression id = parseIDEx();
-                    Declaration d = parseFunDecl(id);
+                    Declaration d = parseFunDecl("void", id);
                     list.add(d);
                     break;
                 case INT_TOKEN:
                     advanceToken();
                     Expression e = parseIDEx();
-                    Declaration decl = parseDeclPrime(e);
+                    Declaration decl = parseDeclPrime("int", e);
                     list.add(decl);
                     break;
                 case SEMICOLON_TOKEN:
@@ -91,7 +91,7 @@ public class CMinusParser implements parser {
      return list; 
     }
     
-    private Declaration parseDeclPrime(Expression e) throws Exception {
+    private Declaration parseDeclPrime(String type, Expression e) throws Exception {
         
         Declaration ret = null;
         
@@ -99,6 +99,8 @@ public class CMinusParser implements parser {
             case SEMICOLON_TOKEN:
             {
                 matchToken(SEMICOLON_TOKEN);
+                
+//                TODO: add type
                 ret = new VarDeclaration(((IDExpression)e).getName(), null, null);
                 break;
             }   
@@ -106,6 +108,8 @@ public class CMinusParser implements parser {
             {
                 matchToken(LBRACKET_TOKEN);
                 Expression n = parseNumExpression();
+                
+//                TODO: add type
                 ret = new VarDeclaration(((IDExpression)e).getName(), n, null);
                 matchToken(RBRACKET_TOKEN);
                 break;
@@ -113,7 +117,7 @@ public class CMinusParser implements parser {
             case LPAREN_TOKEN:
             {
               
-                ret = parseFunDecl(e);
+                ret = parseFunDecl(type, e);
                 break;
             }
             default:
@@ -145,14 +149,16 @@ public class CMinusParser implements parser {
         return e;
     }
     
-    private Declaration parseFunDecl(Expression name) throws Exception {
+    private Declaration parseFunDecl(String type, Expression name) throws Exception {
         
         matchToken(LPAREN_TOKEN);
+        
+//        TODO: check if there are params (see if there is a right param as next token)
         ArrayList<Param> p = parseParams();
         matchToken(RPAREN_TOKEN);
         Statement statement = parseCompoundStatement();
         
-        Declaration d = new FunctionDeclaration(name, p, statement);
+        Declaration d = new FunctionDeclaration(type, name, p, statement);
         
         return d;
         
@@ -165,6 +171,9 @@ public class CMinusParser implements parser {
         if(currToken.getTokenType() == INT_TOKEN){
             p = parseParamList(); 
         }
+        
+//        TODO: there might not be a void token, might just be empty
+        
         else if(currToken.getTokenType() == VOID_TOKEN){
             advanceToken();
         }

@@ -5,6 +5,7 @@
 package bbs.compilerproject.parser;
 
 import bbs.compilerproject.scanner.Token;
+import java.io.PrintWriter;
 
 /**
  *
@@ -79,7 +80,7 @@ public class BinaryExpression extends Expression{
     }
     
     @Override
-    public void print(){
+    public void print(PrintWriter pr){
         System.out.println();
     }
 }

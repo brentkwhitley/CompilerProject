@@ -4,6 +4,11 @@
  */
 package bbs.compilerproject.parser;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +25,25 @@ public class Program {
     
      
     public void print() {
-        
+        try {
+            File file = new File("output.ast");
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName() + "\n");
+            }
+            
+            FileWriter fw = new FileWriter("output.ast", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pr = new PrintWriter(bw);
+            
+            for (int i = 0; i < program.size(); i++) {
+                program.get(i).print(pr);
+            }
+            pr.close();
+        }
+        catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }
 

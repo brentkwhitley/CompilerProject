@@ -4,6 +4,7 @@
  */
 package bbs.compilerproject.parser;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class CallExpression extends Expression{
@@ -19,7 +20,7 @@ public class CallExpression extends Expression{
     }
     
     @Override
-    public void print(){
+    public void print(PrintWriter pr){
         
     }
 }

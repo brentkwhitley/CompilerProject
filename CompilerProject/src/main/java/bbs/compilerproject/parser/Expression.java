@@ -4,6 +4,8 @@
  */
 package bbs.compilerproject.parser;
 
+import java.io.PrintWriter;
+
 /**
  *
  * @author Ben
@@ -11,5 +13,5 @@ package bbs.compilerproject.parser;
 
 abstract class Expression {
     
-    public abstract void print();
+    public abstract void print(PrintWriter pr);
 }

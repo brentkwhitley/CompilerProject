@@ -13,6 +13,7 @@ public class Param {
     private String type;
     private Declaration id;
     private boolean brackets;
+    private int indentation = 2;
     
     public Param(String s, Declaration e, boolean k){
         

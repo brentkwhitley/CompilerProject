@@ -4,13 +4,12 @@
  */
 package bbs.compilerproject.parser;
 
+import java.io.PrintWriter;
+
 /**
  *
  * @author Ben
  */
 abstract class Declaration {
-    
-    
-    public abstract void print();
-    
+    public abstract void print(PrintWriter pr);
 }
