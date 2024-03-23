@@ -29,7 +29,8 @@ public class CMinusParser implements parser {
     
     private void matchToken(TokenType tokenType) throws Exception {
         if(tokenType != currToken.getTokenType()){
-            throw new CMinusParserException("Error: token does not match, expected " + currToken.getTokenType());
+            String str = String.format("matchToken error: expected %s, received %s", tokenType, currToken.getTokenType());
+            throw new CMinusParserException(str);
         }
         advanceToken();
     }
