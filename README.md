@@ -77,7 +77,7 @@ param -> { int }
 
 param’ -> { [ , epsilon}
 
-stmt  -> {; , ID, NUM, ( , if, while, return}
+stmt  -> {;, ID, NUM, ( , {, if, while, return}
 
 expr-stmt -> {; , ID, NUM, ( }
 
