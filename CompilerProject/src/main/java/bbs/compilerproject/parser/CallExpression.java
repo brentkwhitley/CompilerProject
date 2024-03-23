@@ -8,15 +8,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class CallExpression extends Expression{
-    private Expression id;
+    
+    private IDExpression id;
     private ArrayList<Expression> args;
-    private Expression simpEx;
     
-    
-    public CallExpression(Expression ident, ArrayList<Expression> a, Expression ex){
-        id = ident;
-        args = a;
-        simpEx = ex;
+    public CallExpression(IDExpression id, ArrayList<Expression> args){
+        this.id = id;
+        this.args = args;
     }
     
     @Override

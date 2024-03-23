@@ -10,16 +10,14 @@ package bbs.compilerproject.parser;
  */
 public class SelectionStatement extends Statement{
     
-    private Expression ifExpr;
+    private Expression condition;
     private Statement thenStmt;
     private Statement elseStmt;
     
-    public SelectionStatement(Expression exp, Statement st, Statement elseSt){
-        
-        ifExpr = exp;
-        thenStmt = st;
-        elseStmt = elseSt;
-        
+    public SelectionStatement(Expression expr, Statement thenStmt, Statement elseStmt){
+        condition = expr;
+        this.thenStmt = thenStmt;
+        this.elseStmt = elseStmt;
     }
     
     @Override

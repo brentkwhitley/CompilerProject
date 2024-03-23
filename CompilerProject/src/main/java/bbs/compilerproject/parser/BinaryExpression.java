@@ -31,11 +31,11 @@ public class BinaryExpression extends Expression{
         ASSIGN
     }
             
-    public BinaryExpression(Token.TokenType op, Expression l, Expression r){
-        lhs = l;
-        rhs = r;
+    public BinaryExpression(Token.TokenType op, Expression lhs, Expression rhs) {
+        this.lhs = lhs;
+        this.rhs = rhs;
         
-        if (null != op)switch (op) {
+        if (op != null) switch (op) {
             case PLUS_TOKEN:
                 operator = opType.PLUS;
                 break;
@@ -72,7 +72,6 @@ public class BinaryExpression extends Expression{
             default:
                 break;
         }
-        
     } 
     
     public opType getOperator(){

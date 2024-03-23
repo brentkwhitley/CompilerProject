@@ -30,6 +30,6 @@ public class main {
         
         String[] str = inFile.split("\\."); // use escape character because . represents any char in regex
         String inFileWithoutExt = str[0];
-        program.print(inFileWithoutExt);
+//        program.print(inFileWithoutExt);
     }
 }

@@ -1,4 +1,7 @@
-int x;
-int y[3];
+int a;
 
-void add(int x, int y) { }
+void add(int x) {
+    int y;
+    y = x + 2;
+    return y;
+}

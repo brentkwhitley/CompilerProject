@@ -6,12 +6,12 @@ package bbs.compilerproject.parser;
 
 public class IterationStatement extends Statement{
      
-    private Expression e;
-    private Statement s;
+    private Expression expr;
+    private Statement stmt;
 
-    public IterationStatement(Expression ex, Statement state){
-        e = ex;
-        s = state;
+    public IterationStatement(Expression expr, Statement stmt){
+        this.expr = expr;
+        this.stmt = stmt;
     }
     
     @Override
