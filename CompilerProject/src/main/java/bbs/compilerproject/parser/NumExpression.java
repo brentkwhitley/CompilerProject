@@ -4,6 +4,7 @@
  */
 package bbs.compilerproject.parser;
 
+import bbs.compilerproject.scanner.Token;
 import java.io.PrintWriter;
 
 /**
@@ -14,8 +15,8 @@ public class NumExpression extends Expression{
     
     private int val;
     
-    public NumExpression(int k){
-        val = k;
+    public NumExpression(Token token){
+        val = Integer.parseInt((String)token.getTokenData());
     }
     
     @Override

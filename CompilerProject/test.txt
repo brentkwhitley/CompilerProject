@@ -1,3 +1,4 @@
-int test(int x) {
-    return 0;
-}
+int x;
+int y[3];
+
+void add(int x, int y) { }

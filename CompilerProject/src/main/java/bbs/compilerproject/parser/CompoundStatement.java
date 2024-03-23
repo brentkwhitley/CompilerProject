@@ -8,15 +8,12 @@ import java.util.ArrayList;
 
 public class CompoundStatement extends Statement{
     
-    
     private ArrayList<Declaration> decls;
     private ArrayList<Statement> statements;
     
-    
-    public CompoundStatement(ArrayList<Declaration> DeclList, ArrayList<Statement> state){
-        
-        decls = DeclList;
-        statements = state;
+    public CompoundStatement(ArrayList<Declaration> declList, ArrayList<Statement> stmtList){
+        decls = declList;
+        statements = stmtList;
     }    
     
     @Override

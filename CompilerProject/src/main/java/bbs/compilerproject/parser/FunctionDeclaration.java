@@ -14,15 +14,15 @@ import java.util.ArrayList;
 public class FunctionDeclaration extends Declaration{
 
     private String type;
-    private String name;
+    private IDExpression id;
     private ArrayList<Param> params;
     private Statement compoundStmt;
     
     private int indentation;
     
-    public FunctionDeclaration(String type, String name, ArrayList<Param> paramsList, Statement compoundStmt){
+    public FunctionDeclaration(String type, IDExpression id, ArrayList<Param> paramsList, Statement compoundStmt){
         this.type = type;
-        this.name = name;
+        this.id = id;
         params = paramsList;
         this.compoundStmt = compoundStmt;
     }
@@ -30,9 +30,12 @@ public class FunctionDeclaration extends Declaration{
     @Override
     public void print(PrintWriter pr, int indentation){
         // print fun-decl
-        String str = String.format("fun-decl\n-type:%s\n-name:%s", type, name);
+        String str = String.format("fun-decl\n-type:%s", type);
         pr.println(str);
         System.out.println(str);
+        
+        // print function name
+        id.print(pr, indentation);
         
         // TODO: print params list if not void
         if (params != null) {

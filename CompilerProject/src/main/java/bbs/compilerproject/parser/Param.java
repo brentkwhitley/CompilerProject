@@ -13,18 +13,18 @@ import java.io.PrintWriter;
 public class Param {
     
     // only possible param type is int
-    private Declaration id;
+    private IDExpression id;
     private boolean brackets;
     private int indentation = 2;
     
-    public Param(VarDeclaration e, boolean k){
-        id = e;
-        brackets = k;
+    public Param(IDExpression id, boolean brackets){
+        this.id = id;
+        this.brackets = brackets;
     }
     
-    public String getName() {
-        return id.;
-    }
+//    public String getName() {
+//        return id;
+//    }
     
     public void print(PrintWriter pr, int indentation){
         

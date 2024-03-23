@@ -4,6 +4,7 @@
  */
 package bbs.compilerproject.parser;
 
+import bbs.compilerproject.scanner.Token;
 import java.io.PrintWriter;
 
 /**
@@ -12,23 +13,14 @@ import java.io.PrintWriter;
  */
 public class IDExpression extends Expression{
     
-//    private VarDeclaration id;
-//      private Expression rhs;
+    private String name;
     
-    public IDExpression(VarDeclaration id, Expression rhs){
-        this.id = id;
-        this.rhs = rhs;
+    public IDExpression(Token token){
+        this.name = (String)token.getTokenData();
     }
-    public VarDeclaration getName(){
-       return id;
-    }
-    
-//    public void setRHS(Expression e){
-//        val = e;
-//    }
 
     @Override
     public void print(PrintWriter pr, int indentation){
-        //print id = rhs;
+        
     }
 }

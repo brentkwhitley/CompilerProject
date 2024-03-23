@@ -15,21 +15,17 @@ import java.io.PrintWriter;
  */
 public class VarDeclaration extends Declaration{
     
-    private String name;
-    private Expression arraySize;
+    private IDExpression id;
+    private NumExpression arraySize;
     
-    public VarDeclaration(String name, Expression expr){ 
-        this.name = name;
-        arraySize = expr;
-    }
-    
-    public VarDeclaration(String name){ 
-        this.name = name;
+    public VarDeclaration(IDExpression id){ 
+        this.id = id;
         arraySize = null;
     }
     
-    public String getName(){
-        return name;
+    public VarDeclaration(IDExpression id, NumExpression arraySize){ 
+        this.id = id;
+        this.arraySize = arraySize;
     }
     
     @Override
@@ -40,8 +36,11 @@ public class VarDeclaration extends Declaration{
         pr.println(str);
         System.out.println(str);
         
-        str = String.format("%sname:%s", indent, name);
-        pr.println(str);
-        System.out.println(str);
+        // TODO: print id
+        id.print(pr, indentation);
+        
+//        str = String.format("%sname:%s", indent, name);
+//        pr.println(str);
+//        System.out.println(str);
     }
 }
