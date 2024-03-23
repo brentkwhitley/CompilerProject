@@ -20,7 +20,7 @@ stmt  -> expr-stmt | compound-stmt | selection-stmt | iteration-stmt | return-st
 
 expr-stmt ->  [ expr ] **;**
 
-compound-stmt -> **{** {**int ID** [ **[num]** ] } {stmt} **}**
+compound-stmt -> **{** {**int ID** [ **[num]** ] **;** } {stmt} **}**
 
 selection-stmt -> **if (**expr**)** stmt [**else** stmt]
 
