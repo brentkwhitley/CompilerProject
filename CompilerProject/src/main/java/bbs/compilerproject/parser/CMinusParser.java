@@ -14,7 +14,6 @@ public class CMinusParser implements parser {
     private CMinusScanner scan;
     Token currToken = null;
     
-    
     public CMinusParser(CMinusScanner s) {
         scan = s;
         currToken = scan.getNextToken();
@@ -222,7 +221,6 @@ public class CMinusParser implements parser {
         ArrayList<Statement> stmtList = new ArrayList();
         
         matchToken(LBRACE_TOKEN);
-        
         while (currToken.getTokenType() == INT_TOKEN){
             
             matchToken(INT_TOKEN);
@@ -261,7 +259,6 @@ public class CMinusParser implements parser {
             Statement stmt = parseStatement();
             stmtList.add(stmt);
         }
-
         matchToken(RBRACE_TOKEN);
         Statement CS = new CompoundStatement(declList, stmtList);        
         return CS;
@@ -289,7 +286,6 @@ public class CMinusParser implements parser {
         Expression e = parseExpression();
         matchToken(RPAREN_TOKEN);
         Statement stmt = parseStatement();
-        
         Statement returnStmt = new IterationStatement(e, stmt);
         return returnStmt;
     }
@@ -372,7 +368,6 @@ public class CMinusParser implements parser {
 //            case GT_TOKEN:
 //            case GTEQ_TOKEN:
 //            case NOTEQ_TOKEN:
-                
             default:
                 throw new CMinusParserException("Error parsing parseExpressionPrime");
         }
@@ -529,7 +524,6 @@ public class CMinusParser implements parser {
             default:
                 throw new CMinusParserException("Error in parseArgs");
         }
-       
        return args;
     }
     
@@ -543,7 +537,7 @@ public class CMinusParser implements parser {
         }
         return lhs;
     }
-    
+}
     
 //            if(currToken.getTokenType() == LBRACKET_TOKEN){
 //                matchToken(LBRACKET_TOKEN);
@@ -569,5 +563,4 @@ public class CMinusParser implements parser {
 //                declList.add(k);
 //                
 //            }
-}
 

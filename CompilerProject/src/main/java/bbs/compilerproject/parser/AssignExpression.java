@@ -8,16 +8,13 @@ import java.io.PrintWriter;
 
 
 public class AssignExpression extends Expression{
-    private IDExpression LEx; //ID Expresion
-    private Expression REx;
     
+    private IDExpression id;
+    private Expression rhs;
     
-    
-    public AssignExpression(IDExpression left, Expression right){
-        
-        LEx = left;
-        REx = right; 
-        
+    public AssignExpression(IDExpression id, Expression rhs){
+        this.id = id;
+        this.rhs = rhs; 
     }
     
     @Override

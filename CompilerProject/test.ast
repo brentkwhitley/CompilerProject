@@ -1,0 +1,6 @@
+fun-decl
+-type:void
+-params
+--param
+---type:int
+---name:bbs.compilerproject.parser.Param@4b67cf4d

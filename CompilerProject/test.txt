@@ -1,7 +1,4 @@
-int a;
-
 void add(int x) {
     int y;
-    y = x + 2;
-    return y;
+    y = 1;
 }
