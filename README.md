@@ -4,7 +4,7 @@ Program -> decl {decl}
 
 decl -> **void ID** fun-decl’ | **int ID** decl’
 
-decl’ -> **;** | **[num]** | fun-decl’
+decl’ -> **;** | **[num]** **;** | fun-decl’
 
 fun-decl’ -> (params) compound-stmt
 
