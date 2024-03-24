@@ -11,7 +11,7 @@ import java.io.PrintWriter;
  *
  * @author Ben
  */
-public class NumExpression extends Expression{
+public class NumExpression extends Expression {
     
     private int val;
     
@@ -20,7 +20,7 @@ public class NumExpression extends Expression{
     }
     
     @Override
-    public void print(PrintWriter pr, int indentation){
+    public void print(PrintWriter pr, int indentation) {
         
     }
 }

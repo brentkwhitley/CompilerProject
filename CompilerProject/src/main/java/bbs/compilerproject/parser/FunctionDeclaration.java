@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Ben
  */
-public class FunctionDeclaration extends Declaration{
+public class FunctionDeclaration extends Declaration {
 
     private String type;
     private IDExpression id;
@@ -28,33 +28,35 @@ public class FunctionDeclaration extends Declaration{
     }
     
     @Override
-    public void print(PrintWriter pr, int indentation){
+    public void print(PrintWriter pr, int indentation) {
+        indentation += 1;
+        String indent = "-".repeat(indentation);
+        
         // print fun-decl
         String str = String.format("fun-decl\n-type:%s", type);
         pr.println(str);
         System.out.println(str);
         
         // print function name
-        id.print(pr, indentation);
+        id.print(pr, indentation); // indentation should be 0 here
         
-        // TODO: print params list if not void
         if (params != null) {
-            
             // print params
             str = String.format("-params");
             pr.println(str);
             System.out.println(str);
-            
+            // print each paramter type and name
             for (int i = 0; i < params.size(); i++) {
-                str = String.format("--param");
-                pr.println(str);
-                System.out.println(str);
-
-                // print param type and name
-                str = String.format("---type:int\n---name:%s", params.get(i));
-                pr.println(str);
-                System.out.println(str);
+                params.get(i).print(pr);
             }
+        }
+        
+        // print compoundStmt
+        if (compoundStmt != null) {
+            str = String.format("-compound-stmt");
+            pr.println(str);
+            System.out.println(str);
+            compoundStmt.print(pr, indentation);
         }
     }
 }

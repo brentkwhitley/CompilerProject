@@ -4,14 +4,17 @@
  */
 package bbs.compilerproject.parser;
 
-public class ReturnStatement extends Statement{
+import java.io.PrintWriter;
+
+public class ReturnStatement extends Statement {
+    
     private Expression returnVal;
     
-    public ReturnStatement(Expression ex){
+    public ReturnStatement(Expression ex) {
         returnVal = ex;
     }
     @Override
-    public void print(){
+    public void print(PrintWriter pr, int indentation) {
         //print semicolon and return
     }
     

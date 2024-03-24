@@ -4,11 +4,13 @@
  */
 package bbs.compilerproject.parser;
 
+import java.io.PrintWriter;
+
 /**
  *
  * @author Ben
  */
 abstract class Statement {
     
-    public abstract void print();
+    public abstract void print(PrintWriter pr, int indentation);
 }

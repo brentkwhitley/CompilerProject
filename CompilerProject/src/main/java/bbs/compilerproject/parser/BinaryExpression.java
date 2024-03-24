@@ -11,7 +11,7 @@ import java.io.PrintWriter;
  *
  * @author Ben
  */
-public class BinaryExpression extends Expression{
+public class BinaryExpression extends Expression {
     
     private Expression lhs; 
     private Expression rhs;
@@ -74,12 +74,12 @@ public class BinaryExpression extends Expression{
         }
     } 
     
-    public opType getOperator(){
+    public opType getOperator( ) {
         return this.operator;
     }
     
     @Override
-    public void print(PrintWriter pr, int indentation){
+    public void print(PrintWriter pr, int indentation) {
         
     }
 }

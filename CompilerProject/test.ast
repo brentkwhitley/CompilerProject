@@ -1,6 +1,14 @@
 fun-decl
 -type:void
+--name:add
 -params
 --param
 ---type:int
----name:bbs.compilerproject.parser.Param@4b67cf4d
+---name:a
+--param
+---type:int
+---name:b
+-compound-stmt
+---var-decl
+----type:int
+----name:c

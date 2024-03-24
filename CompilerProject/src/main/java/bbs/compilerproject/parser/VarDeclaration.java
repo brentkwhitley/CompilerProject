@@ -13,34 +13,29 @@ import java.io.PrintWriter;
  * int x[] = x + 8;
  * @author Ben
  */
-public class VarDeclaration extends Declaration{
+public class VarDeclaration extends Declaration {
     
     private IDExpression id;
     private NumExpression arraySize;
     
-    public VarDeclaration(IDExpression id){ 
+    public VarDeclaration(IDExpression id) { 
         this.id = id;
         arraySize = null;
     }
     
-    public VarDeclaration(IDExpression id, NumExpression arraySize){ 
+    public VarDeclaration(IDExpression id, NumExpression arraySize) { 
         this.id = id;
         this.arraySize = arraySize;
     }
     
     @Override
-    public void print(PrintWriter pr, int indentation){
+    public void print(PrintWriter pr, int indentation) {
+        indentation += 1;
         String indent = "-".repeat(indentation);
-        
-        String str = String.format("%type:int", indent);
+        String str = String.format("%stype:int", indent);
         pr.println(str);
         System.out.println(str);
         
-        // TODO: print id
         id.print(pr, indentation);
-        
-//        str = String.format("%sname:%s", indent, name);
-//        pr.println(str);
-//        System.out.println(str);
     }
 }

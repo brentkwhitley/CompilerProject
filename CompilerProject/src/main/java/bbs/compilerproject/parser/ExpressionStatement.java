@@ -1,17 +1,18 @@
 
 package bbs.compilerproject.parser;
 
+import java.io.PrintWriter;
 
-public class ExpressionStatement extends Statement{
+public class ExpressionStatement extends Statement {
     
     Expression expr;
     
-    public ExpressionStatement(Expression expr){
+    public ExpressionStatement(Expression expr) {
         this.expr = expr;
     }
     
     @Override
-    public void print(){
+    public void print(PrintWriter pr, int indentation){
         //print the semicolon
     }
     

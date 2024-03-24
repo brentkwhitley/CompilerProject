@@ -11,7 +11,7 @@ import java.io.PrintWriter;
  *
  * @author Ben
  */
-public class IDExpression extends Expression{
+public class IDExpression extends Expression {
     
     private String name;
     
@@ -20,7 +20,10 @@ public class IDExpression extends Expression{
     }
 
     @Override
-    public void print(PrintWriter pr, int indentation){
-        
+    public void print(PrintWriter pr, int indentation) {
+        String indent = "-".repeat(indentation);
+        String str = String.format("%sname:%s", indent, name);
+        pr.println(str);
+        System.out.println(str);
     }
 }

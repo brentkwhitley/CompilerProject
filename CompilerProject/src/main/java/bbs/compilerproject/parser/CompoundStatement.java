@@ -3,22 +3,39 @@
 
 package bbs.compilerproject.parser;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 
-public class CompoundStatement extends Statement{
+public class CompoundStatement extends Statement {
     
-    private ArrayList<Declaration> decls;
-    private ArrayList<Statement> statements;
+    private ArrayList<Declaration> declList;
+    private ArrayList<Statement> stmtList;
     
-    public CompoundStatement(ArrayList<Declaration> declList, ArrayList<Statement> stmtList){
-        decls = declList;
-        statements = stmtList;
+    public CompoundStatement() {
+        declList = null;
+        stmtList = null;
+    }
+    
+    public CompoundStatement(ArrayList<Declaration> declList, ArrayList<Statement> stmtList) {
+        this.declList = declList;
+        this.stmtList = stmtList;
     }    
     
     @Override
-    public void print(){
-        //print start and end { } no matter what
+    public void print(PrintWriter pr, int indentation) {
+        indentation += 1;
+        String indent = "-".repeat(indentation);
+        
+        if (declList != null) {
+            for (int i = 0; i < declList.size(); i++) {
+                String str = String.format("%svar-decl", indent);
+                pr.println(str);
+                System.out.println(str);
+                declList.get(i).print(pr, indentation);
+            }
+        }
+        
+        // repeat similar code for statement list
     }
-    
 }

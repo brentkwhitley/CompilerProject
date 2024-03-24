@@ -7,18 +7,18 @@ package bbs.compilerproject.parser;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-public class CallExpression extends Expression{
+public class CallExpression extends Expression {
     
     private IDExpression id;
     private ArrayList<Expression> args;
     
-    public CallExpression(IDExpression id, ArrayList<Expression> args){
+    public CallExpression(IDExpression id, ArrayList<Expression> args) {
         this.id = id;
         this.args = args;
     }
     
     @Override
-    public void print(PrintWriter pr, int indentation){
+    public void print(PrintWriter pr, int indentation) {
         
     }
 }

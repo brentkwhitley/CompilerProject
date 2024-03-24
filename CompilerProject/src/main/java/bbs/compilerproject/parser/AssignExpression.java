@@ -7,18 +7,18 @@ package bbs.compilerproject.parser;
 import java.io.PrintWriter;
 
 
-public class AssignExpression extends Expression{
+public class AssignExpression extends Expression {
     
     private IDExpression id;
     private Expression rhs;
     
-    public AssignExpression(IDExpression id, Expression rhs){
+    public AssignExpression(IDExpression id, Expression rhs) {
         this.id = id;
         this.rhs = rhs; 
     }
     
     @Override
-    public void print(PrintWriter pr, int indentation){
+    public void print(PrintWriter pr, int indentation) {
         
         // print L = R
     }
