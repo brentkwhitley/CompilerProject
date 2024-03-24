@@ -14,12 +14,12 @@ public class Param {
     
     // only possible param type is int
     private IDExpression id;
-    private boolean brackets;
+    private boolean isArray;
     private int indentation = 2;
     
-    public Param(IDExpression id, boolean brackets) {
+    public Param(IDExpression id, boolean isArray) {
         this.id = id;
-        this.brackets = brackets;
+        this.isArray = isArray;
     }
     
     public void print(PrintWriter pr) {
@@ -27,10 +27,16 @@ public class Param {
         String indent = "-".repeat(indentation);
         
         // print param and param type (can only be int)
-        String str = String.format("--param\n%stype:int", indent);
-        pr.println(str);
-        System.out.println(str);
-
+        if (isArray == false) {
+            String str = String.format("--param\n%stype:int", indent);
+            pr.println(str);
+            System.out.println(str);
+        } else {
+            String str = String.format("--param\n%stype:int-array", indent);
+            pr.println(str);
+            System.out.println(str);
+        }
+        
         // print param name (call IDExpression print)
         id.print(pr, indentation);
     }

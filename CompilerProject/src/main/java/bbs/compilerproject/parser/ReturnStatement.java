@@ -15,7 +15,12 @@ public class ReturnStatement extends Statement {
     }
     @Override
     public void print(PrintWriter pr, int indentation) {
-        //print semicolon and return
+        String indent = "-".repeat(indentation);
+        
+        if (returnVal == null) {
+            String str = String.format("%sreturn", indent);
+            pr.println(str);
+            System.out.println(str);
+        }   
     }
-    
 }

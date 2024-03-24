@@ -23,8 +23,7 @@ public class main {
             inFile = args[0];
         }
         
-        String file = String.format("%s/%s", workingDir, inFile);
-        CMinusScanner scan = new CMinusScanner(file);
+        CMinusScanner scan = new CMinusScanner(workingDir + "/" + inFile);
         CMinusParser parse = new CMinusParser(scan); 
         Program program = parse.parse();
         

@@ -153,6 +153,7 @@ public class CMinusParser implements parser {
     }
     
     private Param parseParam() throws Exception {
+        
         matchToken(INT_TOKEN); // we know and INT will be here, so skip it
         Param p = parseParamPrime(parseID());
         return p;
@@ -173,17 +174,18 @@ public class CMinusParser implements parser {
     }
         
     private Statement parseStatement() throws Exception {
+        
         Statement stmt = null;
-        TokenType tokenType = currToken.getTokenType();
-        while (tokenType == SEMICOLON_TOKEN ||
-               tokenType == IDENT_TOKEN     ||
-               tokenType == NUMBER_TOKEN    ||
-               tokenType == LPAREN_TOKEN    || 
-               tokenType == IF_TOKEN        || 
-               tokenType == WHILE_TOKEN     ||
-               tokenType == RETURN_TOKEN) {
+        
+        if (currToken.getTokenType() == SEMICOLON_TOKEN ||
+            currToken.getTokenType() == IDENT_TOKEN     ||
+            currToken.getTokenType() == NUMBER_TOKEN    ||
+            currToken.getTokenType() == LPAREN_TOKEN    || 
+            currToken.getTokenType() == IF_TOKEN        || 
+            currToken.getTokenType() == WHILE_TOKEN     ||
+            currToken.getTokenType() == RETURN_TOKEN) {
             
-            switch (tokenType) {
+            switch (currToken.getTokenType()) {
                 case LBRACE_TOKEN:
                     stmt = parseCompoundStatement();
                     break;
@@ -204,12 +206,12 @@ public class CMinusParser implements parser {
     }
     
     private Statement parseExpressionStatement() throws Exception {
-        Expression e = null;
-        TokenType tokenType = currToken.getTokenType();
         
-        if(tokenType == IDENT_TOKEN ||
-           tokenType == NUMBER_TOKEN||
-           tokenType == LPAREN_TOKEN) {
+        Expression e = null;
+                
+        if(currToken.getTokenType() == IDENT_TOKEN ||   // TODO: check if we should check for number and ( token?
+           currToken.getTokenType() == NUMBER_TOKEN||
+           currToken.getTokenType() == LPAREN_TOKEN) {
              e = parseExpression();
         }
         matchToken(SEMICOLON_TOKEN);
@@ -218,6 +220,7 @@ public class CMinusParser implements parser {
     }
     
     private Statement parseCompoundStatement() throws Exception {
+        
         ArrayList<Declaration> declList = new ArrayList();
         ArrayList<Statement> stmtList = new ArrayList();
         
@@ -247,15 +250,14 @@ public class CMinusParser implements parser {
             }
         }
         
-        TokenType tokenType = currToken.getTokenType();
-        while (tokenType == SEMICOLON_TOKEN || // TODO: check if we should even check for this semicolon
-               tokenType == IDENT_TOKEN     ||
-               tokenType == NUMBER_TOKEN    ||
-               tokenType == LPAREN_TOKEN    || 
-               tokenType == LBRACE_TOKEN    ||
-               tokenType == IF_TOKEN        ||
-               tokenType == WHILE_TOKEN     ||
-               tokenType == RETURN_TOKEN) {
+        while (currToken.getTokenType() == SEMICOLON_TOKEN || // TODO: check if we should even check for this semicolon
+               currToken.getTokenType() == IDENT_TOKEN     ||
+               currToken.getTokenType() == NUMBER_TOKEN    ||
+               currToken.getTokenType() == LPAREN_TOKEN    || 
+               currToken.getTokenType() == LBRACE_TOKEN    ||
+               currToken.getTokenType() == IF_TOKEN        ||
+               currToken.getTokenType() == WHILE_TOKEN     ||
+               currToken.getTokenType() == RETURN_TOKEN) {
             
             Statement stmt = parseStatement();
             stmtList.add(stmt);
@@ -266,6 +268,7 @@ public class CMinusParser implements parser {
     }
     
     private Statement parseSelectionStatement() throws Exception {
+        
         matchToken(IF_TOKEN);
         matchToken(LPAREN_TOKEN);
         Expression e = parseExpression();
@@ -282,6 +285,7 @@ public class CMinusParser implements parser {
     }
     
     private Statement parseIterationStatement() throws Exception {
+        
         matchToken(WHILE_TOKEN);
         matchToken(LPAREN_TOKEN);
         Expression e = parseExpression();
@@ -292,13 +296,13 @@ public class CMinusParser implements parser {
     }
     
     private Statement parseReturnStatement() throws Exception {
+        
         matchToken(RETURN_TOKEN);
         Expression e = null;
-        TokenType tokenType = currToken.getTokenType();
         
-        if(tokenType == IDENT_TOKEN  ||
-           tokenType == NUMBER_TOKEN ||
-           tokenType == LPAREN_TOKEN){
+        if(currToken.getTokenType() == IDENT_TOKEN  ||
+           currToken.getTokenType() == NUMBER_TOKEN ||
+           currToken.getTokenType() == LPAREN_TOKEN){
              e = parseExpression();
         }
         matchToken(SEMICOLON_TOKEN);
@@ -307,11 +311,17 @@ public class CMinusParser implements parser {
     }
     
     private Expression parseExpression() throws Exception {
+        
         Expression ret = null;
         
         if(currToken.getTokenType() != null) switch (currToken.getTokenType()) {
             case IDENT_TOKEN:
                 IDExpression id = parseID();
+                if (currToken.getTokenType() == SEMICOLON_TOKEN) {
+//                    matchToken(SEMICOLON_TOKEN);
+                    ret = id;
+                    break;
+                }
                 ret = parseExpressionPrime(id);
                 break;
             case NUMBER_TOKEN:
@@ -330,9 +340,14 @@ public class CMinusParser implements parser {
     }
     
     private Expression parseExpressionPrime(IDExpression id) throws Exception {
+        
         Expression ret = null;
         
-        if(currToken.getTokenType() != null) switch (currToken.getTokenType()) {
+        if (currToken.getTokenType() == null || currToken.getTokenType() == SEMICOLON_TOKEN) {
+            return ret;
+        }
+        
+        switch (currToken.getTokenType()) {
             case ASSIGN_TOKEN:
                 matchToken(ASSIGN_TOKEN);
                 Expression e = parseExpression();
@@ -353,10 +368,11 @@ public class CMinusParser implements parser {
                 break;
             case MUL_TOKEN:
             case SLASH_TOKEN:
+            case PLUS_TOKEN:
+            case MINUS_TOKEN:
                 ret = parseSimpleExpression(id);
                 break;
-//            case PLUS_TOKEN:
-//            case MINUS_TOKEN:
+
 //            case SEMICOLON_TOKEN:
 //            case RPAREN_TOKEN:
 //            case RBRACKET_TOKEN:
@@ -387,6 +403,7 @@ public class CMinusParser implements parser {
     }
     
     private Expression parseSimpleExpression(Expression id) throws Exception {
+        
         Expression lhs = parseAdditiveExpressionPrime(id);
         
         if (isRelop(currToken.getTokenType())) {
@@ -408,6 +425,7 @@ public class CMinusParser implements parser {
     }
     
     private Expression parseAdditiveExpression() throws Exception {
+        
         Expression lhs = parseTerm();
         
         while(isAddop(currToken.getTokenType())) {
@@ -420,6 +438,7 @@ public class CMinusParser implements parser {
     }
     
     private Expression parseAdditiveExpressionPrime(Expression id) throws Exception {
+        
         Expression lhs = parseTermPrime(id);
         
         while(isAddop(currToken.getTokenType())) {
@@ -436,6 +455,7 @@ public class CMinusParser implements parser {
     }
     
     private Expression parseTerm() throws Exception {
+        
         Expression lhs = parseFactor();
         
         while(isMulop(currToken.getTokenType())) {
@@ -448,6 +468,7 @@ public class CMinusParser implements parser {
     }
     
     private Expression parseTermPrime(Expression id) throws Exception {
+        
         Expression lhs = id;
         
         while(isMulop(currToken.getTokenType())) {
@@ -464,6 +485,7 @@ public class CMinusParser implements parser {
     }
         
     private Expression parseFactor() throws Exception {
+        
         Expression e = null;
         
         if(null != currToken.getTokenType()) switch (currToken.getTokenType()) {
@@ -489,6 +511,7 @@ public class CMinusParser implements parser {
     }
     
     private Expression parseVarcall(IDExpression id) throws Exception {
+        
         Expression e = null;
         
         if(null != currToken.getTokenType()) switch (currToken.getTokenType()) {
@@ -510,11 +533,13 @@ public class CMinusParser implements parser {
     }
     
     private ArrayList<Expression> parseArgs() throws Exception {
+       
        ArrayList<Expression> args = new ArrayList<>();
-       if (null == currToken.getTokenType()) {
+        
+        if (null == currToken.getTokenType()) {
            throw new CMinusParserException("error in parseArgs");
-       }
-       else switch (currToken.getTokenType()) {
+        }
+        else switch (currToken.getTokenType()) {
             case IDENT_TOKEN:
             case NUMBER_TOKEN:
             case LPAREN_TOKEN:
@@ -524,11 +549,12 @@ public class CMinusParser implements parser {
                 break;
             default:
                 throw new CMinusParserException("error in parseArgs");
-        }
+         }
        return args;
     }
     
     private ArrayList<Expression> parseArgsList() throws Exception {
+        
         ArrayList<Expression> lhs = new ArrayList<>();
         lhs.add(parseExpression());
         

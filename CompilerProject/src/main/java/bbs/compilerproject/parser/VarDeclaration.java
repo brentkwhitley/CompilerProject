@@ -32,9 +32,16 @@ public class VarDeclaration extends Declaration {
     public void print(PrintWriter pr, int indentation) {
         indentation += 1;
         String indent = "-".repeat(indentation);
-        String str = String.format("%stype:int", indent);
-        pr.println(str);
-        System.out.println(str);
+        
+        if (arraySize == null) {
+            String str = String.format("%stype:int", indent);
+            pr.println(str);
+            System.out.println(str);
+        } else {
+            String str = String.format("%stype:int-array", indent);
+            pr.println(str);
+            System.out.println(str);
+        }
         
         id.print(pr, indentation);
     }

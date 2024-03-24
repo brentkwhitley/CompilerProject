@@ -12,3 +12,4 @@ fun-decl
 ---var-decl
 ----type:int
 ----name:c
+---return
