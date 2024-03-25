@@ -154,7 +154,7 @@ public class CMinusParser implements parser {
     
     private Param parseParam() throws Exception {
         
-        matchToken(INT_TOKEN);
+        matchToken(INT_TOKEN); // we know and INT will be here, so skip it
         Param p = parseParamPrime(parseID());
         return p;
     }
@@ -209,7 +209,7 @@ public class CMinusParser implements parser {
         
         Expression e = null;
                 
-        if(currToken.getTokenType() == IDENT_TOKEN ||
+        if(currToken.getTokenType() == IDENT_TOKEN ||   // TODO: check if we should check for number and ( token?
            currToken.getTokenType() == NUMBER_TOKEN||
            currToken.getTokenType() == LPAREN_TOKEN) {
              e = parseExpression();
@@ -250,7 +250,7 @@ public class CMinusParser implements parser {
             }
         }
         
-        while (currToken.getTokenType() == SEMICOLON_TOKEN ||
+        while (currToken.getTokenType() == SEMICOLON_TOKEN || // TODO: check if we should even check for this semicolon
                currToken.getTokenType() == IDENT_TOKEN     ||
                currToken.getTokenType() == NUMBER_TOKEN    ||
                currToken.getTokenType() == LPAREN_TOKEN    || 
@@ -318,7 +318,6 @@ public class CMinusParser implements parser {
             case IDENT_TOKEN:
                 IDExpression id = parseID();
                 if (currToken.getTokenType() == SEMICOLON_TOKEN) {
-                    // TODO matchToken(SEMICOLON_TOKEN)???
                     ret = id;
                     break;
                 }
@@ -488,7 +487,6 @@ public class CMinusParser implements parser {
     private Expression parseFactor() throws Exception {
         
         Expression e = null;
-        
         if(currToken.getTokenType() != null) switch (currToken.getTokenType()) {
             case LPAREN_TOKEN:
                 matchToken(LPAREN_TOKEN);
