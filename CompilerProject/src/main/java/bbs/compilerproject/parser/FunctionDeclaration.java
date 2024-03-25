@@ -12,7 +12,8 @@ public class FunctionDeclaration extends Declaration {
     
     private int indentation;
     
-    public FunctionDeclaration(String type, IDExpression id, ArrayList<Param> paramsList, Statement compoundStmt){
+    public FunctionDeclaration(String type, IDExpression id, 
+            ArrayList<Param> paramsList, Statement compoundStmt){
         this.type = type;
         this.id = id;
         params = paramsList;
