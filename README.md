@@ -48,7 +48,7 @@ term -> factor {mulop factor}
 
 term’ -> {mulop factor}
 
-mulop -> ***** | **/**
+mulop -> **\*** | **/**
 
 factor -> **(**expr**)** | **num** | **ID** varcall
 
