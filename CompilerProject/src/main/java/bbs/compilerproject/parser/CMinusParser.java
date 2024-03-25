@@ -154,7 +154,7 @@ public class CMinusParser implements parser {
     
     private Param parseParam() throws Exception {
         
-        matchToken(INT_TOKEN); // we know and INT will be here, so skip it
+        matchToken(INT_TOKEN);
         Param p = parseParamPrime(parseID());
         return p;
     }
@@ -209,7 +209,7 @@ public class CMinusParser implements parser {
         
         Expression e = null;
                 
-        if(currToken.getTokenType() == IDENT_TOKEN ||   // TODO: check if we should check for number and ( token?
+        if(currToken.getTokenType() == IDENT_TOKEN ||
            currToken.getTokenType() == NUMBER_TOKEN||
            currToken.getTokenType() == LPAREN_TOKEN) {
              e = parseExpression();
@@ -250,7 +250,7 @@ public class CMinusParser implements parser {
             }
         }
         
-        while (currToken.getTokenType() == SEMICOLON_TOKEN || // TODO: check if we should even check for this semicolon
+        while (currToken.getTokenType() == SEMICOLON_TOKEN ||
                currToken.getTokenType() == IDENT_TOKEN     ||
                currToken.getTokenType() == NUMBER_TOKEN    ||
                currToken.getTokenType() == LPAREN_TOKEN    || 
@@ -444,8 +444,10 @@ public class CMinusParser implements parser {
         Expression lhs = parseTermPrime(id);
         
         while(isAddop(currToken.getTokenType())) {
+            Token opToken = currToken;
+            advanceToken();
             Expression rhs = parseTerm();
-            lhs = new NumExpression(currToken);
+            lhs = new BinaryExpression(opToken.getTokenType(), lhs, rhs);
         }
         return lhs;
     }
@@ -566,7 +568,8 @@ public class CMinusParser implements parser {
         return lhs;
     }
 }
-    
+
+// TODO: WHAT IS THIS:
 //            if(currToken.getTokenType() == LBRACKET_TOKEN){
 //                matchToken(LBRACKET_TOKEN);
 //                NumExpression n = parseNumExpression();

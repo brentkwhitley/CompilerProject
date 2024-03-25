@@ -1,11 +1,11 @@
 fun-decl
 -type:int
---name:add
+--name:gcd
 -params
 --param
 ---type:int
----name:a
+---name:u
 --param
 ---type:int
----name:b
+---name:v
 -compound-stmt
