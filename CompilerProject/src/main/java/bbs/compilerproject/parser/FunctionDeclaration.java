@@ -29,20 +29,19 @@ public class FunctionDeclaration extends Declaration {
     
     @Override
     public void print(PrintWriter pr, int indentation) {
-        indentation += 1;
         String indent = "-".repeat(indentation);
         
         // print fun-decl
-        String str = String.format("fun-decl\n-type:%s", type);
+        String str = String.format("fun-decl\n|type:%s", type);
         pr.println(str);
         System.out.println(str);
         
         // print function name
-        id.print(pr, indentation); // indentation should be 0 here
+        id.print(pr, 0); // indentation should be 0 here
         
         if (params != null) {
             // print params
-            str = String.format("-params");
+            str = String.format("|params");
             pr.println(str);
             System.out.println(str);
             // print each paramter type and name
@@ -53,10 +52,10 @@ public class FunctionDeclaration extends Declaration {
         
         // print compoundStmt
         if (compoundStmt != null) {
-            str = String.format("-compound-stmt");
+            str = String.format("|body");
             pr.println(str);
             System.out.println(str);
-            compoundStmt.print(pr, indentation);
+            compoundStmt.print(pr, indentation + 1);
         }
     }
 }

@@ -23,16 +23,15 @@ public class Param {
     }
     
     public void print(PrintWriter pr) {
-        indentation += 1;
-        String indent = "-".repeat(indentation);
+        String indent = "|".repeat(indentation + 1);
         
         // print param and param type (can only be int)
         if (isArray == false) {
-            String str = String.format("--param\n%stype:int", indent);
+            String str = String.format("||param\n%stype:int", indent);
             pr.println(str);
             System.out.println(str);
         } else {
-            String str = String.format("--param\n%stype:int-array", indent);
+            String str = String.format("||param\n%stype:int-array", indent);
             pr.println(str);
             System.out.println(str);
         }

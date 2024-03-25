@@ -21,7 +21,12 @@ public class NumExpression extends Expression {
     
     @Override
     public void print(PrintWriter pr, int indentation) {
+        indentation += 1;
+        String indent = "|".repeat(indentation);
         
+        String str = String.format("%svalue:%s", indent, Integer.toString(value)); 
+        pr.println(str);
+        System.out.println(str);
     }
 }
 

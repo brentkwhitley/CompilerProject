@@ -24,7 +24,25 @@ public class SelectionStatement extends Statement {
     
     @Override
     public void print(PrintWriter pr, int indentation) {
+        indentation += 1;
+        String indent = "|".repeat(indentation);
         
+        String str = String.format("%sif", indent);       
+        pr.println(str);
+        System.out.println(str);
+        condition.print(pr , indentation);
+        
+        str = String.format("%sthen", indent);       
+        pr.println(str);
+        System.out.println(str);
+        thenStmt.print(pr , indentation);
+        
+        if (elseStmt != null) {
+            str = String.format("%selse", indent);       
+            pr.println(str);
+            System.out.println(str);
+            elseStmt.print(pr, indentation);
+        }
     }
     
 }

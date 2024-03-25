@@ -21,7 +21,8 @@ public class IDExpression extends Expression {
 
     @Override
     public void print(PrintWriter pr, int indentation) {
-        String indent = "-".repeat(indentation);
+        indentation += 1;
+        String indent = "|".repeat(indentation);
         String str = String.format("%sname:%s", indent, name);
         pr.println(str);
         System.out.println(str);

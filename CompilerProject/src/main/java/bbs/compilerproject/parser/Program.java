@@ -32,7 +32,7 @@ public class Program {
             }
             PrintWriter pr = new PrintWriter(new BufferedWriter(new FileWriter(outFile, false)));
             for (int i = 0; i < program.size(); i++) {
-                program.get(i).print(pr, 1);
+                program.get(i).print(pr, 0);
             }
             pr.close();
         }

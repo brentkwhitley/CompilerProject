@@ -5,6 +5,7 @@
 package bbs.compilerproject.parser;
 
 import bbs.compilerproject.scanner.Token;
+import static bbs.compilerproject.scanner.Token.TokenType.*;
 import java.io.PrintWriter;
 
 /**
@@ -79,9 +80,44 @@ public class BinaryExpression extends Expression {
         return this.operator;
     }
     
+    private String getConditionType() {
+        switch (operator) {
+            case PLUS:
+                return "+";
+            case MINUS:
+                return "-";
+            case MUL:
+                return "*";
+            case SLASH:
+                return "/";
+            case LT:
+                return "<";
+            case LTEQ:
+                return "<=";
+            case GT:
+                return ">";
+            case GTEQ:
+                return ">=";
+            case EQTO:
+                return "==";
+            case NOTEQ:
+                return "!=";
+            default:
+                return "=";
+        }
+    }
+    
     @Override
     public void print(PrintWriter pr, int indentation) {
+        indentation += 1;
+        String indent = "|".repeat(indentation);
         
+        String str = String.format("%soperator:%s", indent, getConditionType()); 
+        pr.println(str);
+        System.out.println(str);
+        
+        lhs.print(pr, indentation);
+        rhs.print(pr, indentation);
     }
 }
 

@@ -31,7 +31,7 @@ public class VarDeclaration extends Declaration {
     @Override
     public void print(PrintWriter pr, int indentation) {
         indentation += 1;
-        String indent = "-".repeat(indentation);
+        String indent = "|".repeat(indentation);
         
         if (arraySize == null) {
             String str = String.format("%stype:int", indent);

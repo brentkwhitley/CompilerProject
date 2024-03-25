@@ -24,8 +24,7 @@ public class CompoundStatement extends Statement {
     
     @Override
     public void print(PrintWriter pr, int indentation) {
-        indentation += 1;
-        String indent = "-".repeat(indentation);
+        String indent = "|".repeat(indentation);
         
         if (declList != null) {
             for (int i = 0; i < declList.size(); i++) {
