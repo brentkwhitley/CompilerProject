@@ -25,7 +25,7 @@ public class FunctionDeclaration extends Declaration {
         String indent = "-".repeat(indentation);
         
         // print fun-decl
-        String str = String.format("fun-decl\n|type:%s", type);
+        String str = String.format("fun\n|type:%s", type);
         pr.println(str);
         System.out.println(str);
         

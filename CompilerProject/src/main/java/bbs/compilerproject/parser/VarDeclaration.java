@@ -12,26 +12,30 @@ public class VarDeclaration extends Declaration {
         arraySize = null;
     }
     
-    public VarDeclaration(IDExpression id, NumExpression arraySize) { 
+    public VarDeclaration(IDExpression id, NumExpression arraySize) {
         this.id = id;
         this.arraySize = arraySize;
     }
     
     @Override
     public void print(PrintWriter pr, int indentation) {
-        indentation += 1;
         String indent = "|".repeat(indentation);
+        String str = String.format("%svar", indent);
+        pr.println(str);
+        System.out.println(str);
+        
+        indent = "|".repeat(indentation + 1);
         
         if (arraySize == null) {
-            String str = String.format("%stype:int", indent);
+            str = String.format("%stype:int", indent);
             pr.println(str);
             System.out.println(str);
         } else {
-            String str = String.format("%stype:int-array", indent);
+            str = String.format("%stype:int-array\n%ssize", indent, indent);
             pr.println(str);
             System.out.println(str);
+            arraySize.print(pr, indentation + 1);
         }
-        
         id.print(pr, indentation);
     }
 }

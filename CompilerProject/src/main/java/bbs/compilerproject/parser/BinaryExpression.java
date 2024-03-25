@@ -103,7 +103,7 @@ public class BinaryExpression extends Expression {
         indentation += 1;
         String indent = "|".repeat(indentation);
         
-        String str = String.format("%soperator:%s", indent, getConditionType()); 
+        String str = String.format("%soperation:%s", indent, getConditionType()); 
         pr.println(str);
         System.out.println(str);
         

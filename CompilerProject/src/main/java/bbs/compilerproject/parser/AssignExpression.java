@@ -17,7 +17,7 @@ public class AssignExpression extends Expression {
         indentation += 1;
         String indent = "|".repeat(indentation);
         
-        String str = String.format("%soperator:=", indent); 
+        String str = String.format("%sassign", indent); 
         pr.println(str);
         System.out.println(str);
         

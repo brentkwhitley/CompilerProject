@@ -24,10 +24,7 @@ public class CompoundStatement extends Statement {
         
         if (declList != null) {
             for (int i = 0; i < declList.size(); i++) {
-                String str = String.format("%svar-decl", indent);
-                pr.println(str);
-                System.out.println(str);
-                declList.get(i).print(pr, indentation);
+                declList.get(i).print(pr, indentation + 1);
             }
         }
         
