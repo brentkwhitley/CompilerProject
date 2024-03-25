@@ -1,11 +1,7 @@
-
-
-
 package bbs.compilerproject.parser;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
 
 public class CompoundStatement extends Statement {
     

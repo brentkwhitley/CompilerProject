@@ -1,4 +1,3 @@
-
 package bbs.compilerproject.parser;
 
 import java.io.PrintWriter;

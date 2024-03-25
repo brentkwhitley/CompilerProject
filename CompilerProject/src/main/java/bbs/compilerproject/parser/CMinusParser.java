@@ -1,4 +1,3 @@
-
 package bbs.compilerproject.parser;
 
 import bbs.compilerproject.scanner.CMinusScanner;
@@ -8,7 +7,11 @@ import static bbs.compilerproject.scanner.Token.TokenType.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-    
+
+/**
+ *
+ * @author Ben, Brent, Sam
+ */
 public class CMinusParser implements parser {
     
     private CMinusScanner scan;
