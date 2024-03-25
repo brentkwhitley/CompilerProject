@@ -13,7 +13,6 @@ public class ExpressionStatement extends Statement {
     
     @Override
     public void print(PrintWriter pr, int indentation){
-        //print the semicolon
+        expr.print(pr, indentation);
     }
-    
 }

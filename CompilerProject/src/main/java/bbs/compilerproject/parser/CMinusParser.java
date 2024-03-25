@@ -32,7 +32,7 @@ public class CMinusParser implements parser {
     
     private void matchToken(TokenType tokenType) throws Exception {
         if(tokenType != currToken.getTokenType()) {
-            String str = String.format("matchToken expected %s, received %s", 
+            String str = String.format("matchToken expected %s, received %s from currToken", 
                     tokenType, currToken.getTokenType());
             throw new CMinusParserException(str);
         }
@@ -184,6 +184,7 @@ public class CMinusParser implements parser {
             currToken.getTokenType() == IDENT_TOKEN     ||
             currToken.getTokenType() == NUMBER_TOKEN    ||
             currToken.getTokenType() == LPAREN_TOKEN    || 
+            currToken.getTokenType() == LBRACE_TOKEN    ||
             currToken.getTokenType() == IF_TOKEN        || 
             currToken.getTokenType() == WHILE_TOKEN     ||
             currToken.getTokenType() == RETURN_TOKEN) {

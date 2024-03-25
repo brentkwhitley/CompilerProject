@@ -40,10 +40,10 @@ public class FunctionDeclaration extends Declaration {
         id.print(pr, 0); // indentation should be 0 here
         
         if (params != null) {
-            // print params
             str = String.format("|params");
             pr.println(str);
             System.out.println(str);
+            
             // print each paramter type and name
             for (int i = 0; i < params.size(); i++) {
                 params.get(i).print(pr);

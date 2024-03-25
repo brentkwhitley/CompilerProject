@@ -30,9 +30,16 @@ public class SelectionStatement extends Statement {
         String str = String.format("%sif", indent);       
         pr.println(str);
         System.out.println(str);
+        
+        indentation += 1;
+        indent = "|".repeat(indentation);
+        
+        str = String.format("%scondition", indent);       
+        pr.println(str);
+        System.out.println(str);
         condition.print(pr , indentation);
         
-        str = String.format("%sthen", indent);       
+        str = String.format("%sthen", indent);   
         pr.println(str);
         System.out.println(str);
         thenStmt.print(pr , indentation);
@@ -41,8 +48,7 @@ public class SelectionStatement extends Statement {
             str = String.format("%selse", indent);       
             pr.println(str);
             System.out.println(str);
-            elseStmt.print(pr, indentation);
+            elseStmt.print(pr, indentation - 1);
         }
     }
-    
 }

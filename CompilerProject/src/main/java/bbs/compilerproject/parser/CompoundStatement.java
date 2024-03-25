@@ -35,7 +35,6 @@ public class CompoundStatement extends Statement {
             }
         }
         
-        // repeat similar code for statement list
         if (stmtList != null) {
             for (int i = 0; i < stmtList.size(); i++) {
                 stmtList.get(i).print(pr, indentation);

@@ -25,7 +25,7 @@ public class Param {
     public void print(PrintWriter pr) {
         String indent = "|".repeat(indentation + 1);
         
-        // print param and param type (can only be int)
+        // param type can only be int
         if (isArray == false) {
             String str = String.format("||param\n%stype:int", indent);
             pr.println(str);
@@ -36,7 +36,6 @@ public class Param {
             System.out.println(str);
         }
         
-        // print param name (call IDExpression print)
         id.print(pr, indentation);
     }
 }
