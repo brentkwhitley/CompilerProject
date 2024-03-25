@@ -21,6 +21,9 @@ public class CMinusParser implements parser {
     
     public void advanceToken() {
         currToken = scan.getNextToken();
+        while (currToken.getTokenType() == COMMENTBLOCK_TOKEN) {
+            currToken = scan.getNextToken();
+        }
     }
     
     public Token viewNextToken() {
