@@ -28,23 +28,25 @@ iteration-stmt -> **while (**expr**)** stmt
 
 return-stmt -> **return** [expr] **;**
 
-expr -> **ID** expr’ | **num** simple-expr’ | **(**expr**)** simple-expr
+expr -> **ID** expr’ | **num** simple-expr’ | **(**expr**)** simple-expr’
 
-expr’ -> = expr | **[**expr**]** expr’’ | **(**args**)** simple-expr’ | simple-expr
+expr’ -> = expr | **[**expr**]** expr’’ | **(**args**)** simple-expr’ | simple-expr’
 
-expr’’ -> = expr | simple-expr
+expr’’ -> = expr | simple-expr’
 
-simple-expr -> additive-expr simple-expr'
-
-simple-expr' -> additive-expr simple-expr' | **epsilon**
+simple-expr’ -> additive-expr’ [relop additive-expr]
 
 relop -> **<=** | **<** | **>** | **>=** | **==** | **!=**
 
 additive-expr -> term {addop term}
 
+additive-expr’ -> term’ {addop term}
+
 addop -> **+** | **-**
 
 term -> factor {mulop factor}
+
+term’ -> {mulop factor}
 
 mulop -> **\*** | **/**
 
