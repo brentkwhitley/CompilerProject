@@ -34,19 +34,17 @@ expr’ -> = expr | **[**expr**]** expr’’ | **(**args**)** simple-expr’ | 
 
 expr’’ -> = expr | simple-expr’
 
-simple-expr’ -> additive-expr’ [relop additive-expr]
+simple-expr -> additive-expr simple-expr'
+
+simple-expr' -> additive-expr simple-expr' | **epsilon**
 
 relop -> **<=** | **<** | **>** | **>=** | **==** | **!=**
 
 additive-expr -> term {addop term}
 
-additive-expr’ -> term’ {addop term}
-
 addop -> **+** | **-**
 
 term -> factor {mulop factor}
-
-term’ -> {mulop factor}
 
 mulop -> **\*** | **/**
 
@@ -56,7 +54,7 @@ varcall -> **[**expr**]** | **(**args**)** | **epsilon**
 
 args -> args-list | **epsilon**
 
-args-list -> expr { , expr}
+args-list -> expr {**,** expr}
 
 ---
 # First Sets
