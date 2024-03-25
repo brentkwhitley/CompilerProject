@@ -23,9 +23,8 @@ public class Program {
         program = null;
     }
      
-    public void print(String inFileName){
+    public void print(String inFileName) {
         String outFile = inFileName + ".ast";
-        
         try {
             File file = new File(outFile);
             if (file.createNewFile()) {

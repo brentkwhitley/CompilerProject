@@ -16,7 +16,7 @@ public class IDExpression extends Expression {
     private String name;
     
     public IDExpression(Token token){
-        this.name = (String)token.getTokenData();
+        name = (String)token.getTokenData();
     }
 
     @Override
