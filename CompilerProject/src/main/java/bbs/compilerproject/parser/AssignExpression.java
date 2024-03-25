@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 
 public class AssignExpression extends Expression {
     
+    // TODO add index field for array assignemnts?
     private IDExpression id;
     private Expression rhs;
     

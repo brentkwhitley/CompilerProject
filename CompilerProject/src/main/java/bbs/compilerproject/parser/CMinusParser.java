@@ -366,25 +366,24 @@ public class CMinusParser implements parser {
                 Expression simpEx = parseSimpleExpression(id);
                 ret = new CallExpression(id, args);
                 break;
+            case SEMICOLON_TOKEN:
+            case RPAREN_TOKEN:
+            case RBRACKET_TOKEN:
+            case COMMA_TOKEN:
+            case IDENT_TOKEN:
+            case NUMBER_TOKEN:
             case MUL_TOKEN:
             case SLASH_TOKEN:
             case PLUS_TOKEN:
             case MINUS_TOKEN:
+            case EQTO_TOKEN:
+            case NOTEQ_TOKEN:
+            case LT_TOKEN:
+            case LTEQ_TOKEN:
+            case GT_TOKEN:
+            case GTEQ_TOKEN:
                 ret = parseSimpleExpression(id);
                 break;
-
-//            case SEMICOLON_TOKEN:
-//            case RPAREN_TOKEN:
-//            case RBRACKET_TOKEN:
-//            case COMMA_TOKEN:
-//            case IDENT_TOKEN:
-//            case NUMBER_TOKEN:
-//            case EQTO_TOKEN:
-//            case LTEQ_TOKEN:
-//            case LT_TOKEN:
-//            case GT_TOKEN:
-//            case GTEQ_TOKEN:
-//            case NOTEQ_TOKEN:
             default:
                 throw new CMinusParserException("error in parseExpressionPrime");
         }
@@ -488,7 +487,7 @@ public class CMinusParser implements parser {
         
         Expression e = null;
         
-        if(null != currToken.getTokenType()) switch (currToken.getTokenType()) {
+        if(currToken.getTokenType() != null) switch (currToken.getTokenType()) {
             case LPAREN_TOKEN:
                 matchToken(LPAREN_TOKEN);
                 e = parseExpression();
@@ -501,7 +500,9 @@ public class CMinusParser implements parser {
                 IDExpression id = parseID();
                 if (currToken.getTokenType() == LBRACKET_TOKEN || 
                     currToken.getTokenType() == LPAREN_TOKEN) {
-                    parseVarcall(id);
+                    e = parseVarcall(id);
+                } else {
+                    e = id;
                 }
                 break;
             default:

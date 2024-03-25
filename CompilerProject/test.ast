@@ -1,5 +1,5 @@
 fun-decl
--type:void
+-type:int
 --name:add
 -params
 --param
@@ -9,7 +9,3 @@ fun-decl
 ---type:int
 ---name:b
 -compound-stmt
----var-decl
-----type:int
-----name:c
----return
