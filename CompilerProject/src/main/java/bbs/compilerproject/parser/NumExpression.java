@@ -13,10 +13,10 @@ import java.io.PrintWriter;
  */
 public class NumExpression extends Expression {
     
-    private int val;
+    private int value;
     
     public NumExpression(Token token){
-        val = Integer.parseInt((String)token.getTokenData());
+        value = Integer.parseInt((String)token.getTokenData());
     }
     
     @Override

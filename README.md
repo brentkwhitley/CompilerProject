@@ -56,7 +56,7 @@ varcall -> [expr] | (args) | epsilon
 
 args -> args-list | epsilon
 
-args-list -> expr { , expr}
+args-list -> expr {**,** expr}
 
 ---
 # First Sets

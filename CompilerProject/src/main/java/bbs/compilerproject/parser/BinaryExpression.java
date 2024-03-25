@@ -31,43 +31,44 @@ public class BinaryExpression extends Expression {
         ASSIGN
     }
             
-    public BinaryExpression(Token.TokenType op, Expression lhs, Expression rhs) {
+    public BinaryExpression(Token.TokenType operator, Expression lhs, Expression rhs) {
+        
         this.lhs = lhs;
         this.rhs = rhs;
         
-        if (op != null) switch (op) {
+        if (operator != null) switch (operator) {
             case PLUS_TOKEN:
-                operator = opType.PLUS;
+                this.operator = opType.PLUS;
                 break;
             case MINUS_TOKEN:
-                operator = opType.MINUS;
+                this.operator = opType.MINUS;
                 break;
             case MUL_TOKEN:
-                operator = opType.MUL;
+                this.operator = opType.MUL;
                 break;
             case SLASH_TOKEN:
-                operator = opType.SLASH;
+                this.operator = opType.SLASH;
                 break;
             case LT_TOKEN:
-                operator = opType.LT;
+                this.operator = opType.LT;
                 break;
             case LTEQ_TOKEN:
-                operator = opType.LTEQ;
+                this.operator = opType.LTEQ;
                 break;
             case GT_TOKEN:
-                operator = opType.GT;
+                this.operator = opType.GT;
                 break;
             case GTEQ_TOKEN:
-                operator = opType.GTEQ;
+                this.operator = opType.GTEQ;
                 break;
             case EQTO_TOKEN:
-                operator = opType.EQTO;
+                this.operator = opType.EQTO;
                 break;
             case NOTEQ_TOKEN:
-                operator = opType.NOTEQ;
+                this.operator = opType.NOTEQ;
                 break;
             case ASSIGN_TOKEN:
-                operator = opType.ASSIGN;
+                this.operator = opType.ASSIGN;
                 break;
             default:
                 break;
