@@ -568,30 +568,3 @@ public class CMinusParser implements parser {
         return lhs;
     }
 }
-
-// TODO: WHAT IS THIS:
-//            if(currToken.getTokenType() == LBRACKET_TOKEN){
-//                matchToken(LBRACKET_TOKEN);
-//                NumExpression n = parseNumExpression();
-//                matchToken(RBRACKET_TOKEN);
-//                Declaration d = new VarDeclaration(((VarDeclaration)e).getName(), n, null);
-//                    if(currToken.getTokenType() == ASSIGN_TOKEN){
-//                        
-//                        matchToken(ASSIGN_TOKEN);
-//                        Expression rhs = parseExpression();
-//
-//                        ((VarDeclaration)d).setRHS(rhs);
-//
-//                        declList.add(d);
-//                    }
-//            }
-//            else if(currToken.getTokenType() == ASSIGN_TOKEN){
-//                matchToken(ASSIGN_TOKEN);
-//                Expression rhs = parseExpression();
-//                
-//                Declaration k = new VarDeclaration(((VarDeclaration)e).getName(), null, rhs);
-//                
-//                declList.add(k);
-//                
-//            }
-
