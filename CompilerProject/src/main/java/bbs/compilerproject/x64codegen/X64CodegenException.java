@@ -1,6 +1,5 @@
-package x64codegen;
+package bbs.compilerproject.x64codegen;
 
-import x86codegen.*;
 
 public class X64CodegenException extends RuntimeException{
 

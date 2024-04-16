@@ -1,6 +1,6 @@
-package x86codegen;
+package bbs.compilerproject.x86codegen;
 
-import lowlevel.*;
+import bbs.compilerproject.lowlevel.*;
 
 public class X86CodeGenerator {
     // since using EBP as general reg, no push of EBP and offset only 4
