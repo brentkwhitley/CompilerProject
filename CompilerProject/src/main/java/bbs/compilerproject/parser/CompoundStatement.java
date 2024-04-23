@@ -34,4 +34,9 @@ public class CompoundStatement extends Statement {
             }
         }
     }
+
+    public void genLLCode(){
+
+        
+    }
 }

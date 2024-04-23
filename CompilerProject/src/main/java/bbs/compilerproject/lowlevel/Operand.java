@@ -1,7 +1,7 @@
 package bbs.compilerproject.lowlevel;
 
 import java.io.*;
-import bbs.compilerproject.
+import bbs.compilerproject.parser.*;
 
 /**
  * This class is abstracts an operand, one of the arguments to an Operation
@@ -120,7 +120,8 @@ public class Operand {
       return ("s");
     }
     else {
-      throw new parser.CodeGenerationException("Operand: invalid type");
+      System.out.print("Operand: invalid type");
+      return "*******";
     }
   }
     // prints an operand surrounded by parentheses

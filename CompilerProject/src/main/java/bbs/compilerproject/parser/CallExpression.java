@@ -35,5 +35,10 @@ public class CallExpression extends Expression {
             }
         }
     }
+
+    public void genLLCode(){
+
+        
+    }
 }
 

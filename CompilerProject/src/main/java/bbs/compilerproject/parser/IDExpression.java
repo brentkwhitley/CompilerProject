@@ -19,4 +19,9 @@ public class IDExpression extends Expression {
         pr.println(str);
         System.out.println(str);
     }
+
+    public void genLLCode(){
+
+        
+    }
 }

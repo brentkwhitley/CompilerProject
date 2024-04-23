@@ -20,5 +20,10 @@ public class NumExpression extends Expression {
         pr.println(str);
         System.out.println(str);
     }
+
+    public void genLLCode(){
+
+        
+    }
 }
 

@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import bbs.compilerproject.lowlevel.*;
 
 public class Program {
     
@@ -32,6 +33,11 @@ public class Program {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+    }
+
+    public CodeItem genLLCode(){
+
+        return null;
     }
 }
 

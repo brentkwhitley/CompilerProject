@@ -1,6 +1,7 @@
 package bbs.compilerproject.parser;
 
 import java.io.PrintWriter;
+import bbs.compilerproject.lowlevel.*;
 
 public class VarDeclaration extends Declaration {
     
@@ -38,4 +39,10 @@ public class VarDeclaration extends Declaration {
         }
         id.print(pr, indentation);
     }
+
+    public CodeItem genLLCode(){
+
+        return null;
+    }
+    
 }

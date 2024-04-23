@@ -2,6 +2,9 @@ package bbs.compilerproject.parser;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import bbs.compilerproject.lowlevel.*;
+
+
 
 public class FunctionDeclaration extends Declaration {
 
@@ -50,5 +53,12 @@ public class FunctionDeclaration extends Declaration {
             System.out.println(str);
             compoundStmt.print(pr, indentation + 1);
         }
+    }
+
+    public CodeItem genLLCode(){
+
+
+        
+        return null;
     }
 }

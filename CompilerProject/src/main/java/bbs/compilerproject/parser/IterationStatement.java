@@ -34,4 +34,9 @@ public class IterationStatement extends Statement {
         System.out.println(str);
         stmt.print(pr, indentation);
     }
+
+    public void genLLCode(){
+
+        
+    }
 }

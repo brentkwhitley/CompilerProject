@@ -24,4 +24,9 @@ public class AssignExpression extends Expression {
         id.print(pr, indentation);
         rhs.print(pr, indentation);
     }
+
+    public void genLLCode(){
+
+        
+    }
 }

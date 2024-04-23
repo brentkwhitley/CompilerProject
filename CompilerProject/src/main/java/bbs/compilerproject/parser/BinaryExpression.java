@@ -110,5 +110,10 @@ public class BinaryExpression extends Expression {
         lhs.print(pr, indentation);
         rhs.print(pr, indentation);
     }
+
+    public void genLLCode(){
+
+        
+    }
 }
 

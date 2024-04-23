@@ -14,4 +14,9 @@ public class ExpressionStatement extends Statement {
     public void print(PrintWriter pr, int indentation){
         expr.print(pr, indentation);
     }
+
+    public void genLLCode(){
+
+        
+    }
 }

@@ -43,4 +43,9 @@ public class SelectionStatement extends Statement {
             elseStmt.print(pr, indentation - 1);
         }
     }
+
+    public void genLLCode(){
+
+        
+    }
 }

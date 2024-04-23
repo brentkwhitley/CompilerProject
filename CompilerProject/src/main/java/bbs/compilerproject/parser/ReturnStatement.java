@@ -26,4 +26,9 @@ public class ReturnStatement extends Statement {
             System.out.println(str);
         }
     }
+
+    public void genLLCode(){
+
+        
+    }
 }

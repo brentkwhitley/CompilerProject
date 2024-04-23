@@ -2,6 +2,7 @@ package bbs.compilerproject.compiler;
 
 import bbs.compilerproject.x64codegen.X64AssemblyGenerator;
 import bbs.compilerproject.parser.*;
+import bbs.compilerproject.scanner.CMinusScanner;
 import bbs.compilerproject.lowlevel.*;
 import java.util.*;
 import java.io.*;
@@ -25,14 +26,19 @@ public class CMinusCompiler implements Compiler {
         return genX64Code;
     }
 
-    public void compile(String filePrefix) {
+    public void compile(String filePath) {
 
+
+        String filePrefix = "output";
         String fileName = filePrefix + ".c";
+        
         try {
-            Parser myParser = new CMinusParser(fileName);
+
+            CMinusScanner scan = new CMinusScanner(filePath);
+            CMinusParser myParser = new CMinusParser(scan);
 
             Program parseTree = myParser.parse();
-            myParser.printAST(parseTree);
+            parseTree.print("output.txtr");
 
             CodeItem lowLevelCode = parseTree.genLLCode();
 
