@@ -1,0 +1,10 @@
+var
+|type:int
+|name:x
+fun
+|type:int
+|name:func
+|body
+||var
+|||type:int
+|||name:k

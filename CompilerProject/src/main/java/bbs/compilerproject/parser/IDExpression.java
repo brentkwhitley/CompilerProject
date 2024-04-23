@@ -11,6 +11,10 @@ public class IDExpression extends Expression {
         name = (String)token.getTokenData();
     }
 
+    public String getName(){
+        return name;
+    }
+
     @Override
     public void print(PrintWriter pr, int indentation) {
         indentation += 1;
@@ -21,7 +25,9 @@ public class IDExpression extends Expression {
     }
 
     public void genLLCode(){
+//is this in local or in gloable
 
+//if in local  it is in a register
         
     }
 }

@@ -37,7 +37,31 @@ public class Program {
 
     public CodeItem genLLCode(){
 
-        return null;
+        
+        CodeItem head = null;
+        CodeItem tail = null;
+
+
+        for (int i = 0; i < program.size(); i++) {
+            
+            CodeItem item = program.get(i).genLLCode();
+
+            if(head == null){
+
+                head = tail = item;
+            }
+            else{
+
+                tail.setNextItem(item);
+                tail = tail.getNextItem();
+
+
+            }
+        }
+
+
+        return head;
+
     }
 }
 

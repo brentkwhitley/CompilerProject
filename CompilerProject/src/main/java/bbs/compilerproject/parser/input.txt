@@ -1,1 +1,5 @@
 int x;
+
+int func(){
+    int k;
+}

@@ -56,9 +56,40 @@ public class FunctionDeclaration extends Declaration {
     }
 
     public CodeItem genLLCode(){
+//handle params/ linked list of func params and update local table
+        Function func = null;
 
-
+        if(params == null){
         
-        return null;
+            if(type == "void"){
+                func = new Function(0, type);
+            }
+            else{
+                func = new Function(1, type);
+            }
+
+            
+        }
+        else{
+
+            //TODO:create function witbh params
+        }   
+
+        func.createBlock0();
+
+        BasicBlock b = new BasicBlock(func);
+
+        func.setCurrBlock(b);
+        
+        compoundStmt.genLLCode();
+
+        func.appendBlock(func.getReturnBlock());
+
+        if(func.getFirstUnconnectedBlock() != null){
+
+            func.appendBlock(func.getFirstUnconnectedBlock());
+        }
+
+        return func;
     }
 }

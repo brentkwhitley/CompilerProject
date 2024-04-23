@@ -1,6 +1,8 @@
 package bbs.compilerproject.parser;
 
 import java.io.PrintWriter;
+
+import bbs.compilerproject.compiler.CMinusCompiler;
 import bbs.compilerproject.lowlevel.*;
 
 public class VarDeclaration extends Declaration {
@@ -40,9 +42,24 @@ public class VarDeclaration extends Declaration {
         id.print(pr, indentation);
     }
 
+    @SuppressWarnings("unchecked")
     public CodeItem genLLCode(){
 
-        return null;
+        Data data = new Data(1, id.getName());
+
+        CMinusCompiler.globalHash.put(id, id);
+
+        return data;
+    }
+
+    @SuppressWarnings("unchecked")
+    public CodeItem genLLcode(Function f){
+ 
+        Data data = new Data(1, id.getName());
+
+        f.getTable().put(id, f.getNewRegNum());
+
+        return data;
     }
     
 }

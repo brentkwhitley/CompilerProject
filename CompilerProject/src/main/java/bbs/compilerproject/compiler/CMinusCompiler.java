@@ -38,7 +38,7 @@ public class CMinusCompiler implements Compiler {
             CMinusParser myParser = new CMinusParser(scan);
 
             Program parseTree = myParser.parse();
-            parseTree.print("output.txtr");
+            parseTree.print("output.txt");
 
             CodeItem lowLevelCode = parseTree.genLLCode();
 
