@@ -36,7 +36,8 @@ public class CompoundStatement extends Statement {
     }
 
     public void genLLCode(){
-
-        
+        for (int i = 0; i < declList.size(); i++) {
+            //declList.get(i);
+        }
     }
 }

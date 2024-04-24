@@ -15,7 +15,7 @@ public class Program {
     public Program(){
         program = null;
     }
-     
+
     public void print(String inFileName) {
         String outFile = inFileName + ".ast";
         try {

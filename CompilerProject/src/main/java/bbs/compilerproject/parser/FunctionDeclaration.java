@@ -56,24 +56,19 @@ public class FunctionDeclaration extends Declaration {
     }
 
     public CodeItem genLLCode(){
-//handle params/ linked list of func params and update local table
         Function func = null;
 
         if(params == null){
-        
             if(type == "void"){
                 func = new Function(0, type);
             }
             else{
                 func = new Function(1, type);
             }
-
-            
         }
         else{
-
-            //TODO:create function witbh params
-        }   
+            // TODO: create function with params, params are linked list, update local table
+        }
 
         func.createBlock0();
 
