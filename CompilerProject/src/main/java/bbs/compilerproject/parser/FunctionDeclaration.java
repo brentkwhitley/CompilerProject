@@ -55,7 +55,8 @@ public class FunctionDeclaration extends Declaration {
         }
     }
 
-    public CodeItem genLLCode(){
+    public CodeItem genLLCode(Function f){
+
         Function func = null;
 
         if(params == null){
@@ -74,9 +75,11 @@ public class FunctionDeclaration extends Declaration {
 
         BasicBlock b = new BasicBlock(func);
 
+        func.appendBlock(b);
+
         func.setCurrBlock(b);
         
-        compoundStmt.genLLCode();
+        compoundStmt.genLLCode(func);
 
         func.appendBlock(func.getReturnBlock());
 

@@ -42,24 +42,32 @@ public class VarDeclaration extends Declaration {
         id.print(pr, indentation);
     }
 
-    @SuppressWarnings("unchecked")
-    public CodeItem genLLCode(){
-
-        Data data = new Data(1, id.getName());
-
-        CMinusCompiler.globalHash.put(id, id);
-
-        return data;
-    }
 
     @SuppressWarnings("unchecked")
-    public CodeItem genLLcode(Function f){
- 
+    @Override
+    public CodeItem genLLCode(Function f){
+
+
+
+        if(f == null){ //global
+
+            Data data = new Data(1, id.getName());
+
+            CMinusCompiler.globalHash.put(id, id);
+    
+            return data;
+
+        }
+        else{ //local
+
         Data data = new Data(1, id.getName());
 
         f.getTable().put(id, f.getNewRegNum());
 
         return data;
+
+        }
     }
+
     
 }

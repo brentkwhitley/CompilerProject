@@ -113,6 +113,10 @@ public class BinaryExpression extends Expression {
 
     public void genLLCode(){
 
+        lhs.genLLCode();
+        rhs.genLLCode();
+
+        //need much more
         
     }
 }

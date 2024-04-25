@@ -1,5 +1,11 @@
 int x;
 
-int func(){
+int main(){
+    
+    
     int k;
+    int p;
+    int w;
+
+    
 }

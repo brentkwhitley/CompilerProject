@@ -2,6 +2,8 @@ package bbs.compilerproject.parser;
 
 import java.io.PrintWriter;
 
+import bbs.compilerproject.lowlevel.Function;
+
 public class IterationStatement extends Statement {
      
     private Expression expr;
@@ -35,7 +37,7 @@ public class IterationStatement extends Statement {
         stmt.print(pr, indentation);
     }
 
-    public void genLLCode(){
+    public void genLLCode(Function f){
 
         
     }

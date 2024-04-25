@@ -3,8 +3,14 @@ var
 |name:x
 fun
 |type:int
-|name:func
+|name:main
 |body
 ||var
 |||type:int
 |||name:k
+||var
+|||type:int
+|||name:p
+||var
+|||type:int
+|||name:w

@@ -2,6 +2,7 @@ package bbs.compilerproject.parser;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import bbs.compilerproject.lowlevel.*;;
 
 public class CompoundStatement extends Statement {
     
@@ -35,9 +36,18 @@ public class CompoundStatement extends Statement {
         }
     }
 
-    public void genLLCode(){
+    public void genLLCode(Function f){
         for (int i = 0; i < declList.size(); i++) {
-            //declList.get(i);
+
+            declList.get(i).genLLCode(f);
+            
         }
+
+        for (int i = 0; i < stmtList.size(); i++) {
+        
+            stmtList.get(i).genLLCode(f);
+            
+        }
+
     }
 }

@@ -2,6 +2,8 @@ package bbs.compilerproject.parser;
 
 import java.io.PrintWriter;
 
+import bbs.compilerproject.lowlevel.Function;
+
 public class SelectionStatement extends Statement {
     
     private Expression condition;
@@ -44,7 +46,7 @@ public class SelectionStatement extends Statement {
         }
     }
 
-    public void genLLCode(){
+    public void genLLCode(Function f){
 
         
     }

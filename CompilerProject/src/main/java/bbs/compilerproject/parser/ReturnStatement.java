@@ -2,6 +2,8 @@ package bbs.compilerproject.parser;
 
 import java.io.PrintWriter;
 
+import bbs.compilerproject.lowlevel.Function;
+
 public class ReturnStatement extends Statement {
     
     private Expression returnVal;
@@ -27,8 +29,15 @@ public class ReturnStatement extends Statement {
         }
     }
 
-    public void genLLCode(){
+    public void genLLCode(Function f){
 
-        
+        if(returnVal == null){
+
+
+        }
+        else{
+
+            
+        }
     }
 }
