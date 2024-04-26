@@ -120,8 +120,7 @@ public class Operand {
       return ("s");
     }
     else {
-      System.out.print("Operand: invalid type");
-      return "*******";
+      throw new CodeGenerationException("Operand: invalid type");
     }
   }
     // prints an operand surrounded by parentheses

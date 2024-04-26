@@ -13,7 +13,7 @@ public class FunctionDeclaration extends Declaration {
     private ArrayList<Param> params;
     private Statement compoundStmt;
     
-    private int indentation;
+
     
     public FunctionDeclaration(String type, IDExpression id, 
             ArrayList<Param> paramsList, Statement compoundStmt){
@@ -25,7 +25,7 @@ public class FunctionDeclaration extends Declaration {
     
     @Override
     public void print(PrintWriter pr, int indentation) {
-        String indent = "-".repeat(indentation);
+        
         
         // print fun-decl
         String str = String.format("fun\n|type:%s", type);
@@ -54,22 +54,51 @@ public class FunctionDeclaration extends Declaration {
             compoundStmt.print(pr, indentation + 1);
         }
     }
+    
+    @SuppressWarnings("unchecked")
+    public CodeItem genLLCode(){
 
-    public CodeItem genLLCode(Function f){
+        Function func;
 
-        Function func = null;
-
-        if(params == null){
-            if(type == "void"){
-                func = new Function(0, type);
-            }
-            else{
-                func = new Function(1, type);
-            }
+        //get return type
+        if(id.getName() == "void"){
+            func = new Function(0, type);
         }
         else{
-            // TODO: create function with params, params are linked list, update local table
+            func = new Function(1, type);
         }
+
+        FuncParam head = null;
+        FuncParam tail = null;
+
+        for(Param p : params){
+
+            //put in local sym table
+            if(func.getTable().containsKey(p.getName())){
+                    throw new CodeGenerationException("Local var already exists");
+            }
+            else{
+                    func.getTable().put(p.getName(), func.getNewRegNum());
+            }
+            //makes func param out of it
+            FuncParam k = new FuncParam(1, p.getName());
+
+            //append func param to linked list of func params
+            if(head == null){
+
+                head = tail = k;
+            }
+            else{
+
+                tail.setNextParam(k);
+                tail = tail.getNextParam();
+
+            }
+            
+        }
+        
+        //put list in first param
+        func.setFirstParam(head);
 
         func.createBlock0();
 

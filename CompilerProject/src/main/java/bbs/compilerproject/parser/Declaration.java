@@ -8,7 +8,9 @@ import java.io.PrintWriter;
 abstract class Declaration {
     
     public abstract void print(PrintWriter pr, int indentation);
+
     public abstract CodeItem genLLCode();
-    public abstract CodeItem genLLCode(Function f);
+
+    public abstract void genLLCode(Function f);
     
 }

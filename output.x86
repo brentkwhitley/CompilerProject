@@ -1,6 +1,10 @@
 (DATA  x)
-(FUNCTION  int  []
+(DATA  y)
+(DATA  z)
+(FUNCTION  int  [(int a) (int b)]
   (BB 2
+    (OPER 4 Load [(r 1)]  [(m ESP)(i 4)])
+    (OPER 5 Load [(r 2)]  [(m ESP)(i 8)])
   )
   (BB 1
     (OPER 2 Return []  [(m EAX)])

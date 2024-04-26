@@ -1,5 +1,7 @@
 (DATA  x)
-(FUNCTION  int  []
+(DATA  y)
+(DATA  z)
+(FUNCTION  int  [(int a) (int b)]
   (BB 2
     (OPER 3 Func_Entry []  [])
   )

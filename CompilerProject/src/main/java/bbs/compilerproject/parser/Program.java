@@ -44,7 +44,7 @@ public class Program {
 
         for (int i = 0; i < program.size(); i++) {
             
-            CodeItem item = program.get(i).genLLCode(null);
+            CodeItem item = program.get(i).genLLCode();
 
             if(head == null){
 

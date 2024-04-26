@@ -13,6 +13,10 @@ public class Param {
         this.isArray = isArray;
     }
     
+    public String getName(){
+        return id.getName();
+
+    }
     public void print(PrintWriter pr) {
         String indent = "|".repeat(indentation + 1);
         

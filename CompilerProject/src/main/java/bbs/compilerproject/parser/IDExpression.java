@@ -25,7 +25,9 @@ public class IDExpression extends Expression {
         System.out.println(str);
     }
 
-    public void genLLCode(){
+    public void genLLCode(Function f){
+
+        
 //is this in local or in gloable
 //if in local  it is in a register
         //Operation load = new Operation(TODO);
