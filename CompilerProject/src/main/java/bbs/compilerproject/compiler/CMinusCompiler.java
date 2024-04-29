@@ -1,6 +1,5 @@
 package bbs.compilerproject.compiler;
 
-import bbs.compilerproject.x64codegen.X64AssemblyGenerator;
 import bbs.compilerproject.parser.*;
 import bbs.compilerproject.scanner.CMinusScanner;
 import bbs.compilerproject.lowlevel.*;
@@ -38,7 +37,7 @@ public class CMinusCompiler implements Compiler {
             CMinusParser myParser = new CMinusParser(scan);
 
             Program parseTree = myParser.parse();
-            parseTree.print("output.txt");
+            //parseTree.print("output.txt");
 
             CodeItem lowLevelCode = parseTree.genLLCode();
 
@@ -130,9 +129,16 @@ public class CMinusCompiler implements Compiler {
     }
 
     public static void main(String[] args) {
-        String filePrefix = "test5";
+        
+        String filePrefix = "/Users/bennyballin/CompilerProject/CompilerProject/src/main/java/bbs/compilerproject/parser/input.txt";
+    
+
+        
+        //String filePrefix = "test5";
         CMinusCompiler myCompiler = new CMinusCompiler();
         myCompiler.setGenX64Code(true);
         myCompiler.compile(filePrefix);
+
+
     }
 }

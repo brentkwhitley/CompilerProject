@@ -2,11 +2,15 @@ int x;
 int y;
 int z;
 
-int main(int a, int b, int c){
-    
-    int k;
-    int p;
-    int w;
-
+int main(void){
+    int a;
+    a = 4;
+    if(a == 4){
+        putchar(48);
+    }
+    else{
+        putchar(50);
+    }
+    putchar(55);
     
 }

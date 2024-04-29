@@ -140,20 +140,24 @@ public class CMinusParser implements parser {
         
         matchToken(RPAREN_TOKEN);
         Statement statement = parseCompoundStatement();
-        Declaration d = new FunctionDeclaration(type, id, params, statement);
+        Declaration d = new FunctionDeclaration(type, id.getName(), params, statement);
         return d;
     }
     
     private ArrayList<Param> parseParams() throws Exception {
         
         ArrayList<Param> params = new ArrayList();
-        Param p = parseParam();
-        params.add(p);
-        
-        while (currToken.getTokenType() == COMMA_TOKEN) {
-            matchToken(COMMA_TOKEN);
-            p = parseParam();
+        if(currToken.getTokenType() == VOID_TOKEN) {
+            matchToken(VOID_TOKEN);
+        } else {
+            Param p = parseParam();
             params.add(p);
+        
+            while (currToken.getTokenType() == COMMA_TOKEN) {
+                matchToken(COMMA_TOKEN);
+                p = parseParam();
+                params.add(p);
+            }
         }
         return params;
     }

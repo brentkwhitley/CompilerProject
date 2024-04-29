@@ -20,8 +20,7 @@ public class ExpressionStatement extends Statement {
     @Override
     public void genLLCode(Function f){
         
-        expr.genLLCode();
-        
-        
+        expr.genLLCode(f);
+         
     }
 }

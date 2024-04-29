@@ -1,12 +1,36 @@
 (DATA  x)
 (DATA  y)
 (DATA  z)
-(FUNCTION  int  [(int a) (int b)]
+(FUNCTION  main  []
   (BB 2
-    (OPER 4 Load [(r 1)]  [(m ESP)(i 4)])
-    (OPER 5 Load [(r 2)]  [(m ESP)(i 8)])
+  )
+  (BB 3
+    (OPER 5 Mov [(r 2)]  [(i 4)])
+    (OPER 4 Mov [(r 1)]  [(r 2)])
+    (OPER 6 Mov [(r 3)]  [(i 4)])
+    (OPER 22 Cmp [(m Flags)]  [(r 1)(r 3)])
+    (OPER 23 BNE []  [(bb 5)(m Flags)])
+  )
+  (BB 4
+    (OPER 9 Mov [(r 5)]  [(i 48)])
+    (OPER 24 Mov [(m EDI)]  [(r 5)])
+    (OPER 11 JSR []  [(s putchar)(m EDI)] [(numParams 1)])
+    (OPER 12 Mov [(r 6)]  [(m EAX)])
+  )
+  (BB 6
+    (OPER 18 Mov [(r 9)]  [(i 55)])
+    (OPER 25 Mov [(m EDI)]  [(r 9)])
+    (OPER 20 JSR []  [(s putchar)(m EDI)] [(numParams 1)])
+    (OPER 21 Mov [(r 10)]  [(m EAX)])
   )
   (BB 1
     (OPER 2 Return []  [(m EAX)])
+  )
+  (BB 5
+    (OPER 13 Mov [(r 7)]  [(i 50)])
+    (OPER 26 Mov [(m EDI)]  [(r 7)])
+    (OPER 15 JSR []  [(s putchar)(m EDI)] [(numParams 1)])
+    (OPER 16 Mov [(r 8)]  [(m EAX)])
+    (OPER 17 Jmp []  [(bb 6)])
   )
 )

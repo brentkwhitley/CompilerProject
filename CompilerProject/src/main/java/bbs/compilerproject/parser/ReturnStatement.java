@@ -3,6 +3,10 @@ package bbs.compilerproject.parser;
 import java.io.PrintWriter;
 
 import bbs.compilerproject.lowlevel.Function;
+import bbs.compilerproject.lowlevel.Operand;
+import bbs.compilerproject.lowlevel.Operation;
+import bbs.compilerproject.lowlevel.Operand.OperandType;
+import bbs.compilerproject.lowlevel.Operation.OperationType;
 
 public class ReturnStatement extends Statement {
     
@@ -32,14 +36,25 @@ public class ReturnStatement extends Statement {
     public void genLLCode(Function f){
 
         if(returnVal == null){
+            Operation ret = new Operation(OperationType.RETURN, f.getCurrBlock());
+            
 
-
-
-
+            f.getCurrBlock().appendOper(ret);
             
         }
         else{
+            returnVal.genLLCode(f);
 
+            Operand ret = new Operand(OperandType.MACRO, returnVal.register);
+            Operation result = new Operation(OperationType.RETURN, f.getCurrBlock());
+
+            result.setSrcOperand(0, ret);
+            f.getCurrBlock().appendOper(result);
+
+
+            //jump to next block
+            Operation jmp = new Operation(OperationType.JMP, f.getCurrBlock());
+            f.getCurrBlock().appendOper(jmp);
             
         }
     }

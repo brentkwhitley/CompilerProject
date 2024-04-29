@@ -1,7 +1,9 @@
 package bbs.compilerproject.parser;
 
+import bbs.compilerproject.lowlevel.*;
 import bbs.compilerproject.scanner.Token;
 import java.io.PrintWriter;
+
 
 public class NumExpression extends Expression {
     
@@ -21,9 +23,16 @@ public class NumExpression extends Expression {
         System.out.println(str);
     }
 
-    public void genLLCode(){
+    public void genLLCode(bbs.compilerproject.lowlevel.Function f ){
+        register = f.getNewRegNum();
+        Operand dest = new Operand(Operand.OperandType.REGISTER, register);
+        Operand val = new Operand(Operand.OperandType.INTEGER, value);
+        Operation assignOperand = new Operation(Operation.OperationType.ASSIGN, f.getCurrBlock());
 
-        
+        assignOperand.setDestOperand(0, dest);
+        assignOperand.setSrcOperand(0, val);
+
+        f.getCurrBlock().appendOper(assignOperand);
     }
 }
 

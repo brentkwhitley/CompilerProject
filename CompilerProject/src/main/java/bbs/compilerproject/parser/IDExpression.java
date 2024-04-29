@@ -1,6 +1,7 @@
 package bbs.compilerproject.parser;
 
 import bbs.compilerproject.scanner.Token;
+import bbs.compilerproject.compiler.CMinusCompiler;
 import bbs.compilerproject.lowlevel.*;
 import java.io.PrintWriter;
 
@@ -15,6 +16,13 @@ public class IDExpression extends Expression {
     public String getName(){
         return name;
     }
+    public void setRegister(int a){
+        register = a;
+    }
+
+    public int getRegNum(){
+        return register;
+    }
 
     @Override
     public void print(PrintWriter pr, int indentation) {
@@ -25,15 +33,32 @@ public class IDExpression extends Expression {
         System.out.println(str);
     }
 
+    
     public void genLLCode(Function f){
 
-        
-//is this in local or in gloable
-//if in local  it is in a register
-        //Operation load = new Operation(TODO);
-        //Operand src = new Operand(TODO);
-        //load.setSrcOperand(0, src);
-        //int regNum = func.getNewRegNum(); // TODO get Function somehow?
-        // TODO define rest of function
+
+        if(f.getTable().containsKey(name)){
+
+            register = (int)f.getTable().get(name);
+        }
+        else if(CMinusCompiler.globalHash.containsKey(name)){
+
+            register = f.getNewRegNum();
+
+            Operand ident = new Operand(Operand.OperandType.STRING, name);
+            Operand src = new Operand(Operand.OperandType.REGISTER, f.getNewRegNum());
+            Operation load = new Operation(Operation.OperationType.LOAD_I, f.getCurrBlock());
+
+            load.setDestOperand(0, src);
+            load.setSrcOperand(0, ident);
+
+            f.getCurrBlock().appendOper(load);
+            
+        }
+        else{
+
+            throw new CodeGenerationException("IDExpression is not defined");
+        }
+
     }
 }

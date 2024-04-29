@@ -47,34 +47,29 @@ public class VarDeclaration extends Declaration {
     @SuppressWarnings("unchecked")
     public void genLLCode(Function f){
 
-
-       if(f.getTable().containsKey(id)){
+       if(f.getTable().containsKey(id.getName())){
             throw new CodeGenerationException("Local var already exists");
        }
        
-        f.getTable().put(id, f.getNewRegNum());
-       
+        id.setRegister(f.getNewRegNum());
 
+        f.getTable().put(id.getName(), id.getRegNum());
+       
+    
     }
 
 
     @SuppressWarnings("unchecked")
     public CodeItem genLLCode(){
         
-
         if(CMinusCompiler.globalHash.containsKey(id)){
             throw new CodeGenerationException("Global var already exists");
        }
         else{   
             
             Data data = new Data(1, id.getName());
-
             CMinusCompiler.globalHash.put(id, id);
-    
             return data;
         }
-        
     }
-
-    
 }

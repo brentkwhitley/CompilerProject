@@ -9,14 +9,14 @@ import bbs.compilerproject.lowlevel.*;
 public class FunctionDeclaration extends Declaration {
 
     private String type;
-    private IDExpression id;
+    private String id;
     private ArrayList<Param> params;
     private Statement compoundStmt;
     
 
     
-    public FunctionDeclaration(String type, IDExpression id, 
-            ArrayList<Param> paramsList, Statement compoundStmt){
+    public FunctionDeclaration(String type, String id, 
+             ArrayList<Param> paramsList, Statement compoundStmt){
         this.type = type;
         this.id = id;
         params = paramsList;
@@ -61,40 +61,42 @@ public class FunctionDeclaration extends Declaration {
         Function func;
 
         //get return type
-        if(id.getName() == "void"){
-            func = new Function(0, type);
+        if(id == "void"){
+            func = new Function(0, id);
         }
         else{
-            func = new Function(1, type);
+            func = new Function(1, id);
         }
 
         FuncParam head = null;
         FuncParam tail = null;
 
-        for(Param p : params){
+        if(params != null){
+            for(Param p : params){
 
-            //put in local sym table
-            if(func.getTable().containsKey(p.getName())){
-                    throw new CodeGenerationException("Local var already exists");
+                //put in local sym table
+                if(func.getTable().containsKey(p.getName())){
+                        throw new CodeGenerationException("Local var already exists");
+                }
+                else{
+                        func.getTable().put(p.getName(), func.getNewRegNum());
+                }
+                //makes func param out of it
+                FuncParam k = new FuncParam(1, p.getName());
+
+                //append func param to linked list of func params
+                if(head == null){
+
+                    head = tail = k;
+                }
+                else{
+
+                    tail.setNextParam(k);
+                    tail = tail.getNextParam();
+
+                }
+                
             }
-            else{
-                    func.getTable().put(p.getName(), func.getNewRegNum());
-            }
-            //makes func param out of it
-            FuncParam k = new FuncParam(1, p.getName());
-
-            //append func param to linked list of func params
-            if(head == null){
-
-                head = tail = k;
-            }
-            else{
-
-                tail.setNextParam(k);
-                tail = tail.getNextParam();
-
-            }
-            
         }
         
         //put list in first param

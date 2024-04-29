@@ -17,13 +17,16 @@ fun
 ||param
 |||type:int
 |||name:b
+||param
+|||type:int
+|||name:c
 |body
 ||var
 |||type:int
 |||name:k
 ||var
 |||type:int
-|||name:p
+|||name:k
 ||var
 |||type:int
 |||name:w
