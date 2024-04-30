@@ -68,7 +68,7 @@ public class VarDeclaration extends Declaration {
         else{   
             
             Data data = new Data(1, id.getName());
-            CMinusCompiler.globalHash.put(id, id);
+            CMinusCompiler.globalHash.put(id.getName(), id.getName());
             return data;
         }
     }

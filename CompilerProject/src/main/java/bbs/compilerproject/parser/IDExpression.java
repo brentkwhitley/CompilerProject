@@ -46,7 +46,7 @@ public class IDExpression extends Expression {
             register = f.getNewRegNum();
 
             Operand ident = new Operand(Operand.OperandType.STRING, name);
-            Operand src = new Operand(Operand.OperandType.REGISTER, f.getNewRegNum());
+            Operand src = new Operand(Operand.OperandType.REGISTER, register);
             Operation load = new Operation(Operation.OperationType.LOAD_I, f.getCurrBlock());
 
             load.setDestOperand(0, src);

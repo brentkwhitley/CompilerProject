@@ -64,7 +64,7 @@ public class SelectionStatement extends Statement {
             condition.genLLCode(f);
 
             Operand stmt = new Operand(OperandType.REGISTER, this.condition.register);
-            Operand zero = new Operand(OperandType.REGISTER, 0);
+            Operand zero = new Operand(OperandType.INTEGER, 0);
             Operand post = new Operand(OperandType.BLOCK, p.getBlockNum());
             
             Operation branch = new Operation(OperationType.BEQ, f.getCurrBlock());
@@ -75,13 +75,13 @@ public class SelectionStatement extends Statement {
 
             f.getCurrBlock().appendOper(branch);
 
-            f.appendBlock(then);
+            f.appendToCurrentBlock(then);
 
             f.setCurrBlock(then);
 
             thenStmt.genLLCode(f);
 
-            f.appendBlock(p);
+            f.appendToCurrentBlock(p);
 
             f.setCurrBlock(p);
 
@@ -95,7 +95,7 @@ public class SelectionStatement extends Statement {
             condition.genLLCode(f);
 
             Operand stmt = new Operand(OperandType.REGISTER, this.condition.register);
-            Operand zero = new Operand(OperandType.REGISTER, 0);
+            Operand zero = new Operand(OperandType.INTEGER, 0);
             Operand post = new Operand(OperandType.BLOCK, elseBlock.getBlockNum());
             
             Operation branch = new Operation(OperationType.BEQ, f.getCurrBlock());
@@ -106,13 +106,13 @@ public class SelectionStatement extends Statement {
 
             f.getCurrBlock().appendOper(branch);
 
-            f.appendBlock(thenBlock);
+            f.appendToCurrentBlock(thenBlock);
 
             f.setCurrBlock(thenBlock);
 
             thenStmt.genLLCode(f);
 
-            f.appendBlock(postBlock);
+            f.appendToCurrentBlock(postBlock);
 
             f.setCurrBlock(elseBlock);
 

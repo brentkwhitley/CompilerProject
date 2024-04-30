@@ -2,6 +2,7 @@ package bbs.compilerproject.parser;
 
 import java.io.PrintWriter;
 
+import bbs.compilerproject.compiler.CMinusCompiler;
 import bbs.compilerproject.lowlevel.Function;
 import bbs.compilerproject.lowlevel.Operand;
 import bbs.compilerproject.lowlevel.Operation;
@@ -32,17 +33,43 @@ public class AssignExpression extends Expression {
 
     public void genLLCode(Function f){
         
-        register = (int)f.getTable().get(id.getName());
 
-        Operation assignOper = new Operation(Operation.OperationType.ASSIGN, f.getCurrBlock());
-        Operand dst = new Operand(Operand.OperandType.REGISTER, register);
+        //id.genLLCode(f);
+
         rhs.genLLCode(f);
-        Operand src = new Operand(Operand.OperandType.REGISTER, rhs.register);
+        String str = id.getName();
 
-        assignOper.setSrcOperand(0, src);
-        assignOper.setDestOperand(0, dst);
+        if(f.getTable().containsKey(str)){
 
-        f.getCurrBlock().appendOper(assignOper);
+            Operation assignOper = new Operation(Operation.OperationType.ASSIGN, f.getCurrBlock());
+            int destReg = (int)f.getTable().get(str);
+            Operand dst = new Operand(Operand.OperandType.REGISTER, destReg);
+            register = destReg;
+        
+            Operand src = new Operand(Operand.OperandType.REGISTER, rhs.register);
+
+            assignOper.setSrcOperand(0, src);
+            assignOper.setDestOperand(0, dst);
+
+            f.getCurrBlock().appendOper(assignOper);
+        }
+        else if(CMinusCompiler.globalHash.containsKey(str)){
+            Operation storeOper = new Operation(Operation.OperationType.STORE_I, f.getCurrBlock());
+            Operand src = new Operand(Operand.OperandType.REGISTER, rhs.register);
+            Operand src2 = new Operand(Operand.OperandType.STRING, str);
+
+            register = rhs.register;
+            
+            storeOper.setSrcOperand(0, src);
+            storeOper.setSrcOperand(1, src2);
+
+            f.getCurrBlock().appendOper(storeOper);
+
+        }
+        else{
+            throw new CodeGenerationException("Var not found");
+
+        }
         
     }
 }

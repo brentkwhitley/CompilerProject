@@ -35,27 +35,26 @@ public class ReturnStatement extends Statement {
 
     public void genLLCode(Function f){
 
-        if(returnVal == null){
-            Operation ret = new Operation(OperationType.RETURN, f.getCurrBlock());
+        if(returnVal != null){
             
-
-            f.getCurrBlock().appendOper(ret);
-            
-        }
-        else{
             returnVal.genLLCode(f);
 
-            Operand ret = new Operand(OperandType.MACRO, returnVal.register);
-            Operation result = new Operation(OperationType.RETURN, f.getCurrBlock());
+            Operand rhs = new Operand(OperandType.REGISTER, returnVal.register);
+            Operand ret = new Operand(OperandType.MACRO, "RetReg");
+            Operation result = new Operation(OperationType.ASSIGN, f.getCurrBlock());
 
-            result.setSrcOperand(0, ret);
+            result.setSrcOperand(0, rhs);
+            result.setDestOperand(0, ret);
+
             f.getCurrBlock().appendOper(result);
-
-
-            //jump to next block
-            Operation jmp = new Operation(OperationType.JMP, f.getCurrBlock());
-            f.getCurrBlock().appendOper(jmp);
-            
+    
         }
+
+         //jump to next block
+         Operation jmp = new Operation(OperationType.JMP, f.getCurrBlock());
+         Operand srcs = new Operand(OperandType.BLOCK, f.getReturnBlock().getBlockNum());
+         jmp.setSrcOperand(0, srcs);
+         
+         f.getCurrBlock().appendOper(jmp);
     }
 }
