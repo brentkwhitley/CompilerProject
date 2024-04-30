@@ -132,9 +132,6 @@ public class CMinusCompiler implements Compiler {
         
         String filePrefix = "/Users/bennyballin/CompilerProject/CompilerProject/src/main/java/bbs/compilerproject/parser/input.txt";
     
-
-        
-        //String filePrefix = "test5";
         CMinusCompiler myCompiler = new CMinusCompiler();
         myCompiler.setGenX64Code(true);
         myCompiler.compile(filePrefix);
